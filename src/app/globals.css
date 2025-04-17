@@ -10,18 +10,27 @@
   --primary: #4B50D1;
   --secondary: #B1A2D2;
   --accent: #D5ED86;
+  --accent-dark: hsl(80, 73%, 64%);
   --tertiary: #F1FBD0;
 
+  /*   
+  --primary: #7A9F35; 
+  --accent: #D5ED86;
+  --secondary: #E99B3A;
+  --tertiary: #FBF9F0;
+
+  */
+
   /* Utilities */
-  --black: #121212;
+  --black: #333;
   --lightBlack: #1A1A1A;
-  --darkBlack: #0d0d0d;
-  --gray: #222;
-  --gray01: #2b2b2b;
-  --gray02: #3a3a3a;
-  --gray03: #616161;
+  --darkBlack: #121212;
+  --darkGray: #666;
+  --mediumGray: #ccc;
+  --lightGray: #f7f7f7;
+  --borderGray: #e0e0e0;
+  --backgroundGray: #ecebeb;
   --white: #ffffff;
-  --lightGray: #ccc;
   --red: #F33D32;
 }
 
@@ -33,7 +42,7 @@
 }
 
 body {
-  background: var(--accent);
+  background: var(--white);
   color: var(--black);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
@@ -48,41 +57,48 @@ a:not(svg) {
 }
 
 .microcopy {
-  color: var(--gray03);
+  color: var(--black);
   font-size: 14px;
 }
 
 .navbar {
-  background: var(--white);
+  background: var(--primary);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   padding: 12px 32px;
   font-size: 18px;
 }
 
-.navbar > a:not(.logo),
+/* .navbar > a:not(.logo),
 .nav-panel > a {
-  color: var(--black);
-  transition: color ease-in-out 0.2s;
-}
+  
+  transition: all ease-in-out 0.2s;
+} */
 
-.navbar > a:not(.logo),
 .nav-panel > a,
 .nav-panel svg {
- transition: color ease-in-out 0.2s; 
+  color: var(--black);
 }
 
-.navbar > a:not(.logo):not(.active):hover,
-.nav-panel > a:not(.active):hover,
+.navbar > a:not(.logo),
+.navbar > button {
+  color: var(--white);
+  transition: all ease-in-out 0.2s;
+}
+
+.navbar > a:not(.logo):hover,
+.nav-panel > a:hover,
 .nav-panel svg:hover  {
-  color: var(--secondary);
+  color: var(--accent);
+  font-weight: 700;
 }
 
 .navbar > a.active,
 .nav-panel > a.active {
-  color: var(--primary);
+  color: var(--accent);
 }
 
 .logo {
-  color: var(--primary);
+  color: var(--accent);
   font-family: 'Sedgwick Ave Display', cursive;
   text-shadow: 4px 0 var(--secondary);
   font-size: 64px;
@@ -90,31 +106,33 @@ a:not(svg) {
 }
 
 .nav-panel {
-  background: var(--lightBlack);
+  background: var(--white);
   padding: 64px 32px;
 }
 
 footer {
-  background: var(--white);
+  background: var(--primary);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   padding: 64px 32px;
 }
 
 footer svg {
   width: 24px;
   height: 24px;
-  color: var(--black);
+  color: var(--white);
 }
 
 .form {
-  background: var(--darkBlack);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  background: var(--white);
+  border: 1px solid var(--tertiary);
+  box-shadow: 0 10px 20px rgba(38, 29, 29, 0.1);
 }
 
 .form > h1 {
   font-size: 32px;
   font-weight: bold;
   padding-bottom: 24px;
-  color: var(--);
+  color: var(--darkBlack);
 }
 
 .form > h1:has(+ p) {
@@ -130,14 +148,14 @@ footer svg {
 
 .field-wrap > label {
   font-weight: bold;
-  color: var(--gray03);
+  color: var(--lightBlack);
 }
 
 .field-wrap > input {
   width: 100%;
   border-bottom: 1px solid;
-  border-color: var(--gray02);
-  color: var(--white);
+  border-color: var(--darkGray);
+  color: var(--darkBlack);
   outline: none;
   transition: border ease-in-out 0.3s;
 }
@@ -148,14 +166,14 @@ footer svg {
 .field-wrap > input:-webkit-autofill:focus, 
 .field-wrap > input:-webkit-autofill:active {
   -webkit-background-clip: text;
-  -webkit-text-fill-color: #ffffff;
+  -webkit-text-fill-color: var(--darkBlack);
   transition: background-color 5000s ease-in-out 0s, border ease-in-out 0.3s;
-  box-shadow: inset 0 0 20px 20px var(--darkBlack);
+  box-shadow: inset 0 0 20px 20px var(--white);
 }
 
 .field-wrap > input::placeholder,
 .field-wrap > select {
-  color: var(--gray03);
+  color: var(--black);
 }
 
 .field-wrap > select option {
@@ -164,12 +182,12 @@ footer svg {
 
 .field-wrap > input:focus,
 .field-wrap > select:focus {
-  border-color: var(--white);
+  border-color: var(--primary);
 }
 
 .field-wrap > select {
   border-bottom: 1px solid;
-  border-color: var(--gray02);
+  border-color: var(--mediumGray);
   color: var(--);
   width: 100%;
   outline: none;
@@ -186,7 +204,8 @@ footer svg {
 .btn {
   padding: 12px 24px;
   border-radius: 24px;
-  background: var(--gray);
+  background: var(--lightGray);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   display: block;
   font-weight: bold;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
@@ -196,17 +215,21 @@ footer svg {
 .btn.active,
 .btn:hover {
   background: var(--primary);
-  color: var(--black);
+  color: var(--accent);
 }
 
 .credits {
-  color: var(--gray03);
+  color: var(--lightGray);
   transition: all ease-in-out 0.2s;
   user-select: none;
 }
 
 .credits:hover {
   color: var(--secondary);
+}
+
+.credits > a {
+  color: var(--accent);
 }
 
 .toast {
@@ -226,4 +249,8 @@ footer svg {
   background: var(--darkBlack);
   text-align: center;
   border-radius: 12px;
+}
+
+@media only screen and (max-width: 910px) {
+  
 }

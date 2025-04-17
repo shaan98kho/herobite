@@ -11,8 +11,6 @@ import useOnClickOutside from "@/hooks/useOnClickOutside"
 
 import { IoMenuOutline, IoClose } from "react-icons/io5"
 
-
-
 export default function NavBar() {
     const { width } = useWindowSize()
     const [isPanelOpen, setIsPanelOpen] = useState(false)
@@ -35,14 +33,14 @@ export default function NavBar() {
         return <>
             <Link href="/" className={`${path === "/" ? "active font-bold" : ""}`}>Home</Link>
             <Link href="/about" className={`${path === "/about" ? "active font-bold" : ""}`}>About Us</Link>
-            <Link href="/marketplace" className={`${path === "/market" ? "active font-bold" : ""}`}>Market</Link>
-            <Link href="/signIn" className={`${path === "/signIn" ? "active font-bold" : ""}`}>Sign In</Link>
+            <Link href="/market" className={`${path === "/market" ? "active font-bold" : ""}`}>Market</Link>
+            <Link href="/auth/signIn" className={`${path === "/auth/signIn" ? "active font-bold" : ""}`}>Sign In</Link>
         </>
     }
 
     return <>
         <nav className="navbar flex gap-12 items-center justify-end">
-            <Link href="/" className="logo mr-auto cursor-pointer">Hero Bite</Link>
+            <Link href="/" className="logo mr-auto cursor-pointer leading-[60px]">Hero Bite</Link>
 
             {width && width < 910 
             ? (<button className="w-9 h-9" onClick={handleTogglePanel}><IoMenuOutline className="w-full h-full cursor-pointer" /></button>)

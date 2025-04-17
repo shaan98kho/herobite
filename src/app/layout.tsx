@@ -11,11 +11,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <NavBar />
-        <main className="px-8 py-3">
-          {children}
-        </main>
-        <Footer />
+        <div className="flex flex-col min-h-screen w-full">
+          <NavBar />
+          <main className="px-8 py-3">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
