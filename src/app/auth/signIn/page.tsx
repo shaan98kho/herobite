@@ -9,29 +9,23 @@ import GenericForm from "@/components/genericForm"
 
 import { FiLoader } from "react-icons/fi"
 
-interface UserData {
-    email: string,
-    password: string,
-}
+import { AuthSignIn } from "@/store/types"
+import { useStore } from '@/store/useStore'
 
 export default function Login() {
-    const [formData, setFormData] = useState<UserData>({
+    const signIn = useStore(state => state.signIn)
+    const loading = useStore(state => state.loading)
+    const success = useStore(state => state.success)
+    const [formData, setFormData] = useState<AuthSignIn>({
         email: '',
         password: '',
     });
     const router = useRouter()
 
 
-    const handleSubmit = () => {
-        const payload = {
-            email: formData.email,
-            password: formData.password
-        }
-
-        
+    const handleSubmit = async () => {
+        await signIn(formData)
     }
-
-    
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFormData({
@@ -39,6 +33,10 @@ export default function Login() {
             [e.target.name]: e.target.value,
         })
     }
+
+    useEffect(() => {
+        success && router.replace("/")
+    }, [success])
 
     return <>
         <GenericForm onSubmit={handleSubmit}>
@@ -69,7 +67,7 @@ export default function Login() {
             </div>
             <p className="microcopy pt-2">Forgot password</p>
             
-            <button type="submit" onClick={handleSubmit} className="btn mt-9 w-full">Sign In</button>
+            <button type="submit" onClick={handleSubmit} className="btn mt-9 w-full">{loading ? <FiLoader /> : "Sign In"}</button>
             <p className="pt-2 microcopy">Don't have an account yet? <Link href="/auth/signUp" className="underline">Sign Up</Link></p>
         </GenericForm>
     </>

@@ -10,20 +10,19 @@ import Toast from "@/components/toast"
 
 import { FiLoader } from "react-icons/fi"
 
-interface UserData {
-    email: string,
-    password: string,
-    role:string,
-    name: string,
-}
+import { AuthSignUp } from "@/store/types"
+import { useStore } from "@/store/useStore"
 
 export default function SignUp() {
-    const [formData, setFormData] = useState<UserData>({
+    const signUp = useStore(state => state.signUp)
+    const success = useStore(state => state.success)
+    const loading = useStore(state => state.loading)
+    const [formData, setFormData] = useState<AuthSignUp>({
         email: '',
         password: '',
-        role: '',
+        role: "customer",
         name: ''
-    });
+    })
     const [confirmPassword, setConfirmPassword] = useState<string>('')
     const [pwError, setPwError] = useState<string>()
     const [userRole, setuserRole] = useState<string>('')
@@ -35,21 +34,21 @@ export default function SignUp() {
         setFormData(() => {
             return {
                 email: '',
-                password: '',
-                
-                role: '',
+                password: '',                
+                role: 'customer',
                 name: ''
             }
         })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
         if (formData.password !== confirmPassword) {
             setPwError("Passwords do not match!");
             return;
         } else {
             setPwError('')
-            
+            await signUp(formData)
         }
     }
 
@@ -64,11 +63,15 @@ export default function SignUp() {
         setConfirmPassword(e.target.value)
     }
 
+    useEffect(() => {
+        success && setToastMsg("Successfully registered!")
+    }, [success])
+
     return <>
         {toastMsg && <Toast message={toastMsg} onClose={() => {
             setToastMsg('')
             clearInput()
-            router.replace("/auth/login")
+            router.replace("/auth/signIn")
         }}/>}
 
         <GenericForm onSubmit={handleSubmit}>
@@ -79,7 +82,7 @@ export default function SignUp() {
                     clearInput()
                     setFormData({
                         ...formData,
-                        role: userRole === "customer" ? "business_partner" : "customer"
+                        role: userRole === "customer" ? "restaurant" : "customer"
                     })
                 }}} className="highlight cursor-pointer underline">{userRole === "customer" ? "Business Partner" : "Customer"}</span> instead</p>
             }
@@ -97,11 +100,11 @@ export default function SignUp() {
                         }}>Customer</button>
                         <span className="font-bold">or</span>
                         <button className="btn" onClick={() => {
-                            setuserRole("business_partner")
+                            setuserRole("restaurant")
                             clearInput()
                             setFormData({
                                 ...formData,
-                                role: "business_partner"
+                                role: "restaurant"
                             })
                         }}>Business Partner</button>
                     </div>
@@ -201,7 +204,7 @@ export default function SignUp() {
                     </div>
                     {pwError !== '' && <span className="error">{pwError}</span>}
 
-                    <button type="submit" className="btn mt-9 w-full">Sign Up</button>
+                    <button type="submit" className="btn mt-9 w-full">{loading ? <FiLoader /> : "Sign Up"}</button>
                     <p className="pt-1 microcopy">Already have an account? <Link href="/auth/signIn" className="underline">Log In</Link></p>
                 </div>
             }

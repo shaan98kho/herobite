@@ -1,8 +1,18 @@
-export interface Auth {
+export interface AuthSignUp {
     email: string,
     password: string,
     name: string,
     role: "customer" | "restaurant"
+}
+
+export interface AuthSignIn {
+    email: string,
+    password: string
+}
+
+type Coordinates = {
+    lat: number,
+    lon: number    
 }
 
 export interface BaseUser {
@@ -19,10 +29,7 @@ export interface Customer extends BaseUser {
     preferences?: string[],
     reviewedItems?: string[],
     orderHistory?: string[],
-    locationCoordinates?: {
-        lat: number,
-        lon: number
-    }
+    locationCoordinates?: Coordinates
 }
 
 export interface Restaurant extends BaseUser {
@@ -37,13 +44,10 @@ export interface Restaurant extends BaseUser {
         instagram?: string,
         x?: string
     },
-    locationCoordinates?: {
-        lat: number,
-        lon: number
-    }
+    locationCoordinates: Coordinates
 }
 
-export interface Listing {
+export interface Food {
     restaurantUid: string,
     listingId: string,
     title: string,
@@ -77,7 +81,18 @@ export interface Review {
 export type HeroBiteState = {
     currentCustomer: Customer | null,
     currentRestaurant: Restaurant | null,
-    listings: Listing[],
+    listings: Food[],
     orders: Order[]
     reviews: Review[]
 }
+
+// folder structure notes:
+//   /store
+//     /auth
+//       authSlice.ts        # login/logout & role tracking
+//     /customer
+//       customerSlice.ts    # Customer profile + actions (favorites, coins…)
+//     /restaurant
+//       restaurantSlice.ts  # Restaurant profile + actions (listings, refunds…)
+//     types.ts              # shared TS interfaces (BaseUser, Customer, Restaurant…)
+//     useStore.ts           # stitches together all the slices into one hook
