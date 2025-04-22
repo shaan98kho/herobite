@@ -44,6 +44,7 @@ export const createAuthSlice: StateCreator<
                     uid: user.uid,
                     email: user.email,
                     role: role,
+                    name: name
                 }
 
                 await setDoc(doc(db, 'users', user.uid), userData)
@@ -84,7 +85,7 @@ export const createAuthSlice: StateCreator<
                 const user = creds.user
                 const userInfo = {
                     uid: user.uid,
-                    email: user.email
+                    email: user.email,
                 }
                 set({loading: false, error: null, success: true})
                 return userInfo
