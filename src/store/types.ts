@@ -2,6 +2,7 @@ export interface AuthSignUp {
     email: string,
     password: string,
     name: string,
+    phone: string,
     role: "customer" | "restaurant"
 }
 
@@ -20,6 +21,7 @@ export interface BaseUser {
     email: string,
     name: string,
     address?: string,
+    phone?: number,
     role: "customer" | "restaurant"
 }
 
@@ -36,7 +38,6 @@ export interface Restaurant extends BaseUser {
     description?: string,
     uid: string,
     imgUrl?: string,
-    number?: number,
     isOpen: boolean,
     listingCount: number,
     avgRating: number,
@@ -49,14 +50,13 @@ export interface Restaurant extends BaseUser {
 
 export interface Food {
     restaurantUid: string,
-    listingId: string,
+    id: string,
     title: string,
     description: string,
-    imgUrl: string,
+    imgUrl?: string,
     quantity: number,
-    expiryTime: number,
+    expiryDate: number,
     createdAt: number,
-    isActive: boolean,
     tags?: string[]
 }
 

@@ -15,7 +15,7 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen w-full">
           <ClientComponent>
             <NavBar />
-            <main className="px-8 py-3">
+            <main className="">
               {children}
             </main>
             <Footer />

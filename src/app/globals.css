@@ -62,39 +62,43 @@ a:not(svg) {
 }
 
 .navbar {
-  background: var(--primary);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: var(--white);
   padding: 12px 32px;
   font-size: 18px;
 }
 
-/* .navbar > a:not(.logo),
-.nav-panel > a {
-  
+.navbar > a:not(.logo),
+.navbar > button {
+  color: var(--black);
   transition: all ease-in-out 0.2s;
-} */
+}
 
 .nav-panel > a,
 .nav-panel svg {
   color: var(--black);
-}
-
-.navbar > a:not(.logo),
-.navbar > button {
-  color: var(--white);
   transition: all ease-in-out 0.2s;
 }
 
 .navbar > a:not(.logo):hover,
 .nav-panel > a:hover,
 .nav-panel svg:hover  {
-  color: var(--accent);
+  color: var(--secondary);
   font-weight: 700;
 }
 
 .navbar > a.active,
 .nav-panel > a.active {
-  color: var(--accent);
+  color: var(--primary);
+}
+
+.user-icon {
+  width: 32px;
+  height: 32px;
+
+  > svg {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .logo {
@@ -103,6 +107,7 @@ a:not(svg) {
   text-shadow: 4px 0 var(--secondary);
   font-size: 64px;
   font-weight: 700;
+  width: fit-content;
 }
 
 .nav-panel {
@@ -114,25 +119,33 @@ footer {
   background: var(--primary);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   padding: 64px 32px;
+
+  a {
+    color: var(--white);
+
+    > svg {
+      width: 24px;
+      height: 24px;
+      color: var(--white);
+    }
+  }
 }
 
-footer svg {
-  width: 24px;
-  height: 24px;
-  color: var(--white);
+.footer-groove > svg > path {
+  fill: var(--primary);
 }
 
 .form {
   background: var(--white);
   border: 1px solid var(--tertiary);
   box-shadow: 0 10px 20px rgba(0,0,0, 0.3);
-}
 
-.form > h1 {
-  font-size: 32px;
-  font-weight: bold;
-  padding-bottom: 24px;
-  color: var(--darkBlack);
+  > h1 {
+    font-size: 32px;
+    font-weight: bold;
+    padding-bottom: 24px;
+    color: var(--darkBlack);
+  }
 }
 
 .form > h1:has(+ p) {
@@ -253,6 +266,19 @@ footer svg {
   text-align: center;
   color: var(--white);
   border-radius: 12px;
+}
+
+.hero {
+  box-shadow: inset 0px -6px 8px 0px rgba(0, 0, 0, 0.2);
+
+  >h1 {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  >p {
+    width: 50%;
+  }
 }
 
 @media only screen and (max-width: 910px) {

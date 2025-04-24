@@ -1,13 +1,31 @@
-import { create, StateCreator } from "zustand"
-import { HeroBiteState } from "./types"
-import { createAuthSlice, AuthSlice } from './auth/authSlice'
-import { createCustomerSlice, CustomerSlice } from "./customer/customerSlice"
-import { createRestaurantSlice, RestaurantSlice } from "./restaurant/restaurantSlice"
+// useStore.ts
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+import { createAuthSlice } from './auth/authSlice'
+import { createCustomerSlice } from './customer/customerSlice'
+import { createRestaurantSlice } from './restaurant/restaurantSlice'
 
-export type MyState = AuthSlice & CustomerSlice & RestaurantSlice
+export type MyState =
+  ReturnType<typeof createAuthSlice> &
+  ReturnType<typeof createCustomerSlice> &
+  ReturnType<typeof createRestaurantSlice>
 
-export const useStore = create<MyState>()((set, get, api) => ({
-    ...createAuthSlice(set, get, api),
-    ...createCustomerSlice(set, get, api),
-    ...createRestaurantSlice(set, get, api)
-}))
+export const useStore = create<MyState>()(
+  persist(
+    (set, get, api) => ({
+      // spread in all slices, now *without* slice-level persist
+      ...createAuthSlice(set, get, api),
+      ...createCustomerSlice(set, get, api),
+      ...createRestaurantSlice(set, get, api),
+    }),
+    {
+      name: 'herobite-storage',    // single key
+      // choose exactly which bits you want to persist:
+      partialize: (state) => ({
+        user: state.user,
+        customer: state.customer,
+        restaurant: state.restaurant,
+      }),
+    }
+  )
+)

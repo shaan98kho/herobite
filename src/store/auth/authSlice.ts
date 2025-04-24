@@ -11,6 +11,8 @@ import {
 } from "firebase/auth"
 import { setDoc, doc } from "firebase/firestore/lite"
 
+type AuthSignUpWithoutPhone = Omit<AuthSignUp, "phone">
+
 export type AuthSlice = {
     user: BaseUser | null,
     loading: boolean,
@@ -18,24 +20,23 @@ export type AuthSlice = {
     success: boolean,
 
     //actions
+    setUser: (data: BaseUser | null) => void,
     signUp: (data: AuthSignUp) => Promise<void>,
     signIn: (data: AuthSignIn) => Promise<any>,
-    signOut: () => Promise<void>
+    logout: () => Promise<void>
 }
 
-export const createAuthSlice: StateCreator<
-    AuthSlice,
-    [],
-    [["zustand/persist", { user: BaseUser | null; }]]
-> = persist(
-    (set) => ({
+export const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
         user: null,
         loading: false,
         error: null,
         success: false,
 
         // actions
-        signUp: async({email, password, name, role})=> {
+        setUser: (user: BaseUser | null) => {
+            set({user: user})
+        },
+        signUp: async({email, password, name, role, phone}: AuthSignUp)=> {
             set({loading: true, error: null, success: false})
             try {
                 const creds = await createUserWithEmailAndPassword(auth, email, password)
@@ -51,7 +52,8 @@ export const createAuthSlice: StateCreator<
 
                 if(role === "customer") {
                     const customerData = {
-                        name: name
+                        name: name,
+                        uid: user.uid
                     }
 
                     await setDoc(doc(db, 'customers', user.uid), customerData)
@@ -60,11 +62,11 @@ export const createAuthSlice: StateCreator<
                 if(role === "restaurant") {
                     const businessData = {
                         name: name,
-                        number: 0,
                         isOpen: false,
                         listingCount: 0,
                         avgRating: 0,
                         socialLinks: {},
+                        uid: user.uid
                     }
 
                     await setDoc(doc(db, 'restaurants', user.uid), businessData)
@@ -77,7 +79,7 @@ export const createAuthSlice: StateCreator<
                 set({error: e.message})
             }
         },
-        signIn: async({email, password}) => {
+        signIn: async({email, password}: AuthSignIn) => {
             set({loading: true, error: null, success: false})
             try {
                 const creds = await signInWithEmailAndPassword(auth, email, password)
@@ -95,15 +97,8 @@ export const createAuthSlice: StateCreator<
                 set({error: e.message})
             }
         },
-        signOut: async() => {
+        logout: async() => {
             await signOut(auth)
-            set({user:null})
+            set({user:null, loading: false, error: null, success: false})
         }
-    }),
-    {
-        name: 'auth-storage',
-        partialize:(state) => ({
-            user: state.user
-        }),
-    }
-)
+    })

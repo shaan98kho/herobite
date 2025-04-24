@@ -1,11 +1,15 @@
-"use client"
+import { useStore } from "@/store/useStore"
+import Hero from "@/components/hero"
 
-import Image from "next/image";
-import { useAuthListener } from "@/hooks/useAuthListener";
+export default function App() {
 
-export default function Home() {
-  useAuthListener()
-  return (
-    <>Home Page</>
-  );
+
+    return (
+        <>
+            <Hero
+                caption="Today's Surplus"
+                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non tellus sed magna elementum malesuada. Ut id elit fermentum, vestibulum tellus vel, auctor erat. Cras accumsan orci nec nisi scelerisque dictum."
+            />
+        </>
+    )
 }

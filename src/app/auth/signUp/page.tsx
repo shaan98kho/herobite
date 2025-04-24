@@ -21,7 +21,8 @@ export default function SignUp() {
         email: '',
         password: '',
         role: "customer",
-        name: ''
+        name: '',
+        phone: ''
     })
     const [confirmPassword, setConfirmPassword] = useState<string>('')
     const [pwError, setPwError] = useState<string>()
@@ -36,7 +37,8 @@ export default function SignUp() {
                 email: '',
                 password: '',                
                 role: 'customer',
-                name: ''
+                name: '',
+                phone: ''
             }
         })
     }
@@ -134,6 +136,18 @@ export default function SignUp() {
                             value={formData.name}
                             onChange={handleChange}
                             placeholder="John Doe"
+                            required
+                        />
+                    </div>
+                    <div className="field-wrap">
+                        <label htmlFor="name">Number</label>
+                        <input 
+                            type="phone"
+                            id="phone"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            placeholder="+60 123456789"
                             required
                         />
                     </div>

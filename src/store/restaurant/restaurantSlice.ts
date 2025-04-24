@@ -1,20 +1,6 @@
 import { StateCreator } from "zustand"
-import { persist } from "zustand/middleware"
 
 import { Restaurant } from "../types"
-import { auth, db } from "@/app/lib/firebase"
-
-import { 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword,
-    signOut 
-} from "firebase/auth"
-
-import {
-    setDoc,
-    doc,
-    getDoc,
-    getDocs } from "firebase/firestore/lite"
 
 export type RestaurantSlice = {
     restaurant: Restaurant | null,
@@ -23,33 +9,17 @@ export type RestaurantSlice = {
     success: boolean,
 
     //actions
-    setRestaurantProfile: (c: Restaurant | null) => Promise<void>
-    editRestaurantProfile: () => Promise<void>,
-
+    setRestaurantProfile: (r: Restaurant | null) => Promise<void>,
+    // editRestaurantProfile: () => Promise<void>,
 }
 
-export const createRestaurantSlice: StateCreator<
-    RestaurantSlice,
-    [],
-    [["zustand/persist", { restaurant: Restaurant | null; }]]
-> = persist(
-        (set) => ({
+export const createRestaurantSlice: StateCreator<RestaurantSlice> = (set) => ({
             restaurant: null,
             loading: false,
             error: null,
             success: false,
 
-            setRestaurantProfile: async(restaurantInfo) => {
+            setRestaurantProfile: async(restaurantInfo: Restaurant | null) => {
                 set({restaurant: restaurantInfo})
-            },
-            editRestaurantProfile: async() => {
-
             }
-        }),
-        {
-            name: 'profile-storage',
-            partialize: state => ({
-                restaurant: state.restaurant,
-            }),
-        }
-)
+        })

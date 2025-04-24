@@ -1,20 +1,6 @@
 import { StateCreator } from "zustand"
-import { persist } from "zustand/middleware"
 
 import { Customer } from "../types"
-import { auth, db } from "@/app/lib/firebase"
-
-import { 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword,
-    signOut 
-} from "firebase/auth"
-
-import {
-    setDoc,
-    doc,
-    getDoc,
-    getDocs } from "firebase/firestore/lite"
 
 export type CustomerSlice = {
     customer: Customer | null,
@@ -26,21 +12,15 @@ export type CustomerSlice = {
     setCustomerProfile: (c: Customer | null) => Promise<void>
     editCustomerProfile: () => Promise<void>,
     addFavorites: () => Promise<void>
-
 }
 
-export const createCustomerSlice: StateCreator<
-    CustomerSlice,
-    [],
-    [["zustand/persist", { customer: Customer | null; }]]
-> = persist(
-        (set) => ({
+export const createCustomerSlice: StateCreator<CustomerSlice> = (set) => ({
             customer: null,
             loading: false,
             error: null,
             success: false,
 
-            setCustomerProfile: async(customerInfo) => {
+            setCustomerProfile: async(customerInfo: Customer | null) => {
                 set({customer: customerInfo})
             },
             editCustomerProfile: async() => {
@@ -49,11 +29,4 @@ export const createCustomerSlice: StateCreator<
             addFavorites: async() => {
 
             }
-        }),
-        {
-            name: 'profile-storage',
-            partialize: state => ({
-                customer: state.customer,
-            }),
-        }
-)
+        })
