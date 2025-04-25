@@ -57,6 +57,7 @@ export interface Food {
     quantity: number,
     expiryDate: number,
     createdAt: number,
+    unitPrice: number,
     tags?: string[]
 }
 

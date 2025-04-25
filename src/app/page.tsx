@@ -1,14 +1,22 @@
+"use client"
 import { useStore } from "@/store/useStore"
 import Hero from "@/components/hero"
+import { useRouter } from "next/navigation"
 
 export default function App() {
+    const router = useRouter()
+    const pushToMarket = () => {
+        router.push("/market")
+    }
 
 
     return (
         <>
             <Hero
                 caption="Today's Surplus"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non tellus sed magna elementum malesuada. Ut id elit fermentum, vestibulum tellus vel, auctor erat. Cras accumsan orci nec nisi scelerisque dictum."
+                description="For the time being, please click on User avatar/name to log out."
+                action={pushToMarket}
+                actionName="Check Out Today's Market"
             />
         </>
     )

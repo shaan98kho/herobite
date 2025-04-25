@@ -269,7 +269,7 @@ footer {
 }
 
 .hero {
-  box-shadow: inset 0px -6px 8px 0px rgba(0, 0, 0, 0.2);
+  /* box-shadow: inset 0px -6px 8px 0px rgba(0, 0, 0, 0.2); */
 
   >h1 {
     font-size: 32px;
@@ -278,6 +278,89 @@ footer {
 
   >p {
     width: 50%;
+  }
+}
+
+.market {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-panel {
+  padding: 20px 32px;
+}
+
+.market-bottom {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  padding: 20px 32px;
+}
+
+.filter-sidebar {
+  width: 30%;
+}
+
+.card-wrap {
+  width: 70%;
+}
+
+.card {
+  border: 1px solid var(--borderGray);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  width: 100%;
+  padding: 16px;
+  gap: 8px;
+}
+
+.card-image {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--borderGray);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  span {
+    padding-right: 4px;
+    font-size: 14px;
+    color: var(--darkGray);
+  }
+}
+
+.card-metadata {
+  display: flex;
+  gap: 16px;
+  margin-top: auto;
+
+  > span {
+    position: relative;
+  }
+
+  > span:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    right: -10px;
+    width: 4px;
+    height: 4px;
+    top: 44%;
+    border-radius: 50%;
+    background: var(--mediumGray);
+    
   }
 }
 

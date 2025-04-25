@@ -31,7 +31,7 @@ export default function NavBar() {
 
     const path = usePathname()
 
-    const userIcon = currentUser && <button className="cursor-pointer flex items-center flex-row-reverse gap-[10px]"><div className="user-icon"><FaUserCircle /></div><span>{currentUser.name}</span></button>
+    const userIcon = currentUser && <button className="cursor-pointer flex items-center flex-row-reverse gap-[10px]" onClick={signOut}><div className="user-icon"><FaUserCircle /></div><span>{currentUser.name}</span></button>
 
 
     const ref = useRef<HTMLDivElement>(null)
@@ -55,7 +55,7 @@ export default function NavBar() {
             : navElements()
             }
 
-            {userIcon}
+            {width && width > 910 && userIcon}
             {/* {currentUser && <span onClick={signOut} className="cursor-pointer">Sign Out</span>} */}
         </nav>
         {width && width < 910 && (
