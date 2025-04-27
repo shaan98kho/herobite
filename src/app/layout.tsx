@@ -1,7 +1,7 @@
-import NavBar from "@/components/navbar"
+import NavBar from "@/components/Navbar"
 import "./globals.css"
-import Footer from "@/components/footer"
-import ReactQueryProvider from "@/components/reactQueryProvider"
+import Footer from "@/components/Footer"
+import ReactQueryProvider from "@/components/ReactQueryProvider"
 
 
 export default function RootLayout({

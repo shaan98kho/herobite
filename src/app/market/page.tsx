@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import FoodCard from "./components/foodCard"
+import FoodCard from "./components/FoodCard"
 import { useFetchFood } from "@/hooks/useFetchFood"
 
 export default function Marketplace() {

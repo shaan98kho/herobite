@@ -1,5 +1,5 @@
 "use client"
-import FoodDetail from "../components/foodDetail"
+import FoodDetail from "../components/FoodDetail"
 
 
 export default async function FoodItem() {

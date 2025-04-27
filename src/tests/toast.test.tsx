@@ -1,6 +1,6 @@
 // Toast.test.tsx
 import { render, screen } from '@testing-library/react'
-import Toast from "@/components/toast"
+import Toast from "@/components/Toast"
 import userEvent from "@testing-library/user-event"
 
 describe("Toast component", () => {

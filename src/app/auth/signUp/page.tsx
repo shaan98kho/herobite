@@ -5,8 +5,8 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-import GenericForm from "@/components/genericForm"
-import Toast from "@/components/toast"
+import GenericForm from "@/components/GenericForm"
+import Toast from "@/components/Toast"
 
 import { FiLoader } from "react-icons/fi"
 
