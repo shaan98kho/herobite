@@ -295,6 +295,7 @@ footer {
   align-items: start;
   gap: 10px;
   padding: 20px 32px;
+  flex-direction: column;
 }
 
 .filter-sidebar {
@@ -302,7 +303,7 @@ footer {
 }
 
 .card-wrap {
-  width: 70%;
+  width: 100%;
 }
 
 .card {
@@ -310,7 +311,6 @@ footer {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  max-width: 300px;
   width: 100%;
   padding: 16px;
   gap: 8px;
@@ -323,12 +323,15 @@ footer {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--borderGray);
+  background: var(--borderGray);
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: start;
+  flex-direction: column;
+  color: var(--darkBlack);
 
   h3 {
     font-size: 18px;
@@ -337,7 +340,7 @@ footer {
 
   span {
     padding-right: 4px;
-    font-size: 14px;
+    font-size: 12px;
     color: var(--darkGray);
   }
 }
@@ -346,6 +349,7 @@ footer {
   display: flex;
   gap: 16px;
   margin-top: auto;
+  flex-wrap: wrap;
 
   > span {
     position: relative;
@@ -364,6 +368,25 @@ footer {
   }
 }
 
-@media only screen and (max-width: 910px) {
+@media only screen and (min-width: 910px) {
+  .market-bottom {
+    flex-direction: row;
+  }
+
+  .card-wrap {
+    width: 70%;
+  }
+
+  .card {
+    max-width: 300px;
+  }
+
+  .card-header {
+    flex-direction: row;
+
+    span {
+      font-size: 13px;
+    }
+  }
   
 }

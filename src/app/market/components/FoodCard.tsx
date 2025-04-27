@@ -27,12 +27,15 @@ export default function FoodCard({
                 <h3><span>RM</span>{unitPrice?.toFixed(2)}</h3>
             </div>
             {(width && width > 910) &&
-                <div className="card-content">
-                    <p>{description}</p>
-                </div>}
-            <div className="card-metadata">
-                {tags?.map(tag => <span key={tag}>{tag}</span>)}
-            </div>
+                <>
+                    <div className="card-content">
+                        <p>{description}</p>
+                    </div>
+                    <div className="card-metadata">
+                        {tags?.map(tag => <span key={tag}>{tag}</span>)}
+                    </div>
+                </>
+            }
         </div>
     </>)
 }

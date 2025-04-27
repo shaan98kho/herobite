@@ -1,11 +1,16 @@
 "use client"
 
 import React from "react"
+import FilterPanel from "./components/FilterPanel"
 import FoodCard from "./components/FoodCard"
+import SearchBar from "./components/SearchBar"
 import { useFetchFood } from "@/hooks/useFetchFood"
+import useWindowSize from "@/hooks/useWindowSize"
+
 
 export default function Marketplace() {
     const {data: foods, isLoading, isError} = useFetchFood()
+    const {width} = useWindowSize()
 
     if(isLoading) return <h2 className="py-5 px-8">Loading</h2>
     if(isError) return <h2 className="py-5 px-8">There was an error loading the listing, please try again.</h2>
@@ -28,10 +33,13 @@ export default function Marketplace() {
  
     return (
         <div className="market">
-            <div className="search-panel">Search bar here</div>
+            <SearchBar />
             <div className="market-bottom">
-                <div className="filter-sidebar">Filter sidebar here</div>
-                <div className="card-wrap grid grid-cols-3 gap-[10px]">
+                {width && width > 910
+                    ? <FilterPanel />
+                    : <button className="btn mb-4">Filter</button>
+                }
+                <div className={`card-wrap grid ${width && width<910 ? "grid-cols-2" : "grid-cols-3"} gap-[10px]`}>
                     {foodListings}
                 </div>
             </div>
