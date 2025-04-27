@@ -1,6 +1,6 @@
 "use client"
 import { useStore } from "@/store/useStore"
-import Hero from "@/components/hero"
+import Hero from "@/components/Hero"
 import { useRouter } from "next/navigation"
 
 export default function App() {
