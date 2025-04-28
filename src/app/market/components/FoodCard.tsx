@@ -10,21 +10,18 @@ export default function FoodCard({
     title,
     description,
     imgUrl,
-    quantity,
-    expiryDate,
-    createdAt,
     tags,
     unitPrice
-}: Food) {
+}: Omit<Food, "quantity" | "expiryDate" | "createdAt">) {
 
     const { width } = useWindowSize()
 
     return (<>
-        <div className="card">
+        <div className="card cursor-pointer">
             <div className="card-image">{imgUrl ? <img src={imgUrl} alt="food photo"></img> : <FaImages />}</div>
             <div className="card-header">
                 <h3 className="card-title">{title}</h3>
-                <h3><span>RM</span>{unitPrice?.toFixed(2)}</h3>
+                <h3 className="card-price"><span>RM</span>{unitPrice?.toFixed(2)}</h3>
             </div>
             {(width && width > 910) &&
                 <>

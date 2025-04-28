@@ -5,7 +5,7 @@ import { Food } from '@/store/types'
 
 const foodCollectionRef = collection(db, "foodListing")
 
-async function fetchFood():Promise<Food[]> {
+async function fetchFoods():Promise<Food[]> {
     const snapshot = await getDocs(foodCollectionRef)
     const foods = snapshot.docs?.map(doc => ({
         ...doc.data(),
@@ -15,10 +15,10 @@ async function fetchFood():Promise<Food[]> {
     return foods
 }
 
-export function useFetchFood() {
+export function useFetchFoods() {
     return useQuery<Food[]> ({
         queryKey: ['foods'],
-        queryFn: fetchFood,
+        queryFn: fetchFoods,
         staleTime: (60 * 1000) * 3, // 3 minutes
     })
 }

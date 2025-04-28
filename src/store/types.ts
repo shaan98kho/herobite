@@ -59,6 +59,7 @@ export interface Food {
     createdAt: number,
     unitPrice: number,
     tags?: string[]
+    reviews?: Review[]
 }
 
 export interface Order {
