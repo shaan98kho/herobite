@@ -11,7 +11,8 @@ export type CustomerSlice = {
     //actions
     setCustomerProfile: (c: Customer | null) => Promise<void>
     editCustomerProfile: () => Promise<void>,
-    addFavorites: () => Promise<void>
+    addFavorite: (id: string) => Promise<void>
+    removeFavorite: (id: string) => Promise<void>
 }
 
 export const createCustomerSlice: StateCreator<CustomerSlice> = (set) => ({
@@ -26,7 +27,22 @@ export const createCustomerSlice: StateCreator<CustomerSlice> = (set) => ({
             editCustomerProfile: async() => {
 
             },
-            addFavorites: async() => {
-
+            addFavorite: async(id: string) => {
+                set(s => ({
+                    customer: s.customer 
+                            ? { ...s.customer, 
+                                favourites: [...s.customer.favourites || [], id] 
+                              }
+                            : null
+                }))
+            },
+            removeFavorite: async(id: string) => {
+                set(s => ({
+                    customer: s.customer 
+                    ? {...s.customer,
+                        favourites: s.customer.favourites ? s.customer.favourites.filter(f => f !== id) : []
+                      }
+                    : null
+                }))
             }
         })

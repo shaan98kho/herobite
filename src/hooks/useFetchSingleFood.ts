@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { 
-    collection,
+import {
     doc,
     getDoc
 } from 'firebase/firestore/lite'

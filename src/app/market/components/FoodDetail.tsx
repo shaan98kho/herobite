@@ -1,9 +1,14 @@
 "use client"
 
 import { Food } from "@/store/types"
-import { FaImages } from "react-icons/fa"
+
+import { useStore } from "@/store/useStore"
+import { useState } from "react"
+
+import { FaImages, FaRegHeart, FaHeart } from "react-icons/fa"
 
 export default function FoodDetail({
+    id,
     title,
     description,
     imgUrl,
@@ -13,15 +18,31 @@ export default function FoodDetail({
     unitPrice,
     tags,
     reviews
-}: Omit<Food, "restaurantUid" | "id">) {
+}: Omit<Food, "restaurantUid">) {
+    const currentUser = useStore(s => s.user)
+    const customer = useStore((s) => s.customer)
     
+    const isFav = useStore(s =>
+        s.user?.role === 'customer'
+          ? s.customer?.favourites?.includes(id) ?? false
+          : false
+      )
     
     return (
         <div className="py-5 px-8">
+            {imgUrl 
+                ? <div>
+                    {isFav ? <FaHeart /> : <FaRegHeart />}
+                    <img src={imgUrl}></img>
+                  </div>
+                : <div>
+                    {isFav ? <FaHeart /> : <FaRegHeart />}
+                    <FaImages />
+                  </div>
+            }
             <h2>{title}</h2>
             <h3>Price: RM{unitPrice}</h3>
             <h4>Quantity: {quantity}</h4>
-            {imgUrl ? <img src={imgUrl}></img> : <FaImages />}
             <p>{description}</p>
             <div>
                 <span>Created at: {createdAt.toString()}</span>
