@@ -1,5 +1,4 @@
 import { StateCreator } from "zustand"
-
 import { Customer } from "../types"
 
 export type CustomerSlice = {

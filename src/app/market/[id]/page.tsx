@@ -6,8 +6,9 @@ import Link from "next/link"
 import { useFetchSingleFood } from "@/hooks/useFetchSingleFood"
 
 import FoodDetail from "../components/FoodDetail"
+import BackButton from "../components/BackButton"
 
-import { IoArrowBackOutline } from "react-icons/io5"
+
 
 export default function FoodItem() {
     const params = useParams()
@@ -24,7 +25,7 @@ export default function FoodItem() {
     if(isLoading) return <div className="py-5 px-8">Loading..</div>
 
     return (<>
-        <Link href=".." className="back px-8 flex items-center gap-1"><IoArrowBackOutline />Back to All Market</Link>
+        <BackButton btnText="Back to market" />
         <FoodDetail
             id={foodItem.id}
             title={foodItem.title}
