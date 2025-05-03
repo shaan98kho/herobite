@@ -9,6 +9,7 @@ import GenericForm from "@/components/GenericForm"
 import Toast from "@/components/Toast"
 
 import { FiLoader } from "react-icons/fi"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 import { AuthSignUp } from "@/store/types"
 import { useStore } from "@/store/useStore"
@@ -28,8 +29,17 @@ export default function SignUp() {
     const [pwError, setPwError] = useState<string>()
     const [userRole, setuserRole] = useState<string>('')
     const [toastMsg, setToastMsg] = useState<string>('')
+    const [isShowPassword, setIsShowPassword] = useState(false)
+    const [isShowConfirm, setIsShowConfirm] = useState(false)
     const router = useRouter()
 
+    const togglePassword = () => {
+        setIsShowPassword((prev) => !prev)
+    }
+
+    const toggleConfirm = () => {
+        setIsShowConfirm((prev) => !prev)
+    }
 
     const clearInput = () => {
         setFormData(() => {
@@ -151,50 +161,11 @@ export default function SignUp() {
                             required
                         />
                     </div>
-                    {/* {userRole === "business_partner" && 
-                        <>
-                            <div className="field-wrap">
-                                <label htmlFor="">Business Description</label>
-                                <select name="business_type" 
-                                    id="business_type"
-                                    value={formData.business_type}
-                                    onChange={handleChange}
-                                >
-                                    <option value="">Select a role</option>
-                                    <option value="restaurant">Restaurant Owner</option>
-                                    <option value="supplier">Fresh Supplier</option>
-                                </select>
-                            </div>
-                            <div className="field-wrap">
-                                <label htmlFor="business_name">Business Name</label>
-                                <input 
-                                    type="text"
-                                    id="business_name"
-                                    name="business_name"
-                                    value={formData.business_name}
-                                    onChange={handleChange}
-                                    placeholder="Enter your business name"
-                                    required
-                                />
-                            </div>
-                            <div className="field-wrap">
-                                <label htmlFor="business_id">Business ID</label>
-                                <input 
-                                    type="text"
-                                    id="business_id"
-                                    name="business_id"
-                                    value={formData.business_id}
-                                    onChange={handleChange}
-                                    placeholder="Enter your business ID"
-                                    required
-                                />
-                            </div>
-                        </>
-                    } */}
                     <div className="field-wrap">
                         <label htmlFor="password">Password</label>
+                        {isShowPassword ? <FaEyeSlash onClick={togglePassword}/> : <FaEye onClick={togglePassword}/>}
                         <input 
-                            type="password"
+                            type={isShowPassword ? "text" : "password"}
                             id="password"
                             name="password"
                             value={formData.password}
@@ -206,8 +177,9 @@ export default function SignUp() {
                     </div>
                     <div className="field-wrap">
                         <label htmlFor="confirmPassword">Confirm your password</label>
+                        {isShowConfirm ? <FaEyeSlash onClick={toggleConfirm}/> : <FaEye onClick={toggleConfirm} />}
                         <input 
-                            type="password"
+                            type={isShowConfirm ? "text" : "password"}
                             id="confirmPassword"
                             name="confirmPassword"
                             value={confirmPassword}

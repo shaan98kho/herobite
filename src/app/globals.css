@@ -157,6 +157,14 @@ footer {
   flex-direction: column;
   gap: 10px;
   align-items: start;
+  position: relative;
+
+  > svg {
+    position: absolute;
+    bottom: 2px;
+    right: 0;
+    cursor: pointer;
+  }
 }
 
 .field-wrap > label {
@@ -433,8 +441,13 @@ footer {
     position: absolute;
     top: 8px;
     left: 8px;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
   }
 
   > button.active {
@@ -485,6 +498,8 @@ footer {
 
   .detail-top {
     flex-direction: row;
+    gap: 20px;
+    align-items: start;
   }  
 
   .detail-img {

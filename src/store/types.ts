@@ -80,6 +80,17 @@ export interface Review {
     createdAt: number
 }
 
+export interface Filters {
+    available: {
+        restaurants: string[],
+        tags: string[],
+    },
+    selected: {
+        restaurants: string[],
+        tags: string[]
+    },
+}
+
 export type HeroBiteState = {
     currentCustomer: Customer | null,
     currentRestaurant: Restaurant | null,

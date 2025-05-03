@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation"
 import GenericForm from "@/components/GenericForm"
 
 import { FiLoader } from "react-icons/fi"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 import { AuthSignIn } from "@/store/types"
 import { useStore } from '@/store/useStore'
@@ -19,9 +20,13 @@ export default function Login() {
     const [formData, setFormData] = useState<AuthSignIn>({
         email: '',
         password: '',
-    });
+    })
+    const [isShowPassword, setIsShowPassword] = useState(false)
     const router = useRouter()
 
+    const togglePassword = () => {
+        setIsShowPassword((prev) => !prev)
+    }
 
     const handleSubmit = async () => {
         await signIn(formData)
@@ -55,8 +60,9 @@ export default function Login() {
             </div>
             <div className="field-wrap">
                 <label htmlFor="password">Password</label>
+                {isShowPassword ? <FaEyeSlash onClick={togglePassword}/> : <FaEye onClick={togglePassword}/>}
                 <input 
-                    type="password"
+                    type={isShowPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     value={formData.password}

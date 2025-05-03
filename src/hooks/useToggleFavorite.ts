@@ -1,5 +1,3 @@
-"use client"
-
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore/lite'
 import { db } from '@/app/lib/firebase'
@@ -30,7 +28,6 @@ export function useToggleFavorite(foodId: string) {
           )
         },
         onMutate: (fav: boolean) => {
-            console.log('optimistic isFav →', fav)
             fav ? addFav(foodId) : removeFav(foodId)
         },
         onError: (err: any, fav: boolean) => {
