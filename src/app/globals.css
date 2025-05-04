@@ -236,6 +236,15 @@ footer {
   cursor: pointer;
 }
 
+.btn-alt {
+  color: var(--primary);
+  font-size: 18px;
+  
+  :hover {
+    color: var(--secondary);
+  }
+}
+
 .btn.active,
 .btn:hover {
   background: var(--primary);
@@ -299,19 +308,35 @@ footer {
 }
 
 .market-bottom {
-  display: flex;
-  align-items: start;
-  gap: 10px;
-  padding: 20px 32px;
   flex-direction: column;
 }
 
-.filter-sidebar {
-  width: 30%;
+.filter-wrap {
+  width: 100%;
+}
+
+.filter-panel {
+  width: 100%;
+
+  >h3 {
+    color: var(--darkBlack);
+  }
+}
+
+.filter-option {
+  background: var(--borderGray);
+  border-radius: 8px;
+}
+
+.filter-option.active {
+  background: var(--primary);
+  color: var(--white);
+  font-weight: 700;
 }
 
 .card-wrap {
   width: 100%;
+  align-items: stretch;
 }
 
 .card {
@@ -323,6 +348,7 @@ footer {
   padding: 16px;
   gap: 8px;
   color: var(--black);
+  height: 100%;
 }
 
 .card-image {
@@ -331,8 +357,14 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  object-fit: cover;
   border: 1px solid var(--borderGray);
   background: var(--borderGray);
+
+  >img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .card-header {
@@ -412,13 +444,9 @@ footer {
     p {
       width: 100%;
       min-height: 150px;
+      display: -webkit-box;
     }
   }
-}
-
-.back {
-  color: var(--primary);
-  font-size: 18px;
 }
 
 .detail-top {
@@ -432,6 +460,11 @@ footer {
   position: relative;
   height: 250px;
   background: var(--mediumGray);
+
+  > img {
+    width: 100%;
+    height: 100%;
+  }
 
   > svg {
     width: 100%;
@@ -496,6 +529,18 @@ footer {
     }
   }
 
+  .card-content {
+    > p {
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+    }
+  }
+
   .detail-top {
     flex-direction: row;
     gap: 20px;
@@ -504,5 +549,13 @@ footer {
 
   .detail-img {
     width: 50%;
+  }
+
+  .detail-metadata {
+    width: 50%;
+  }
+
+  .filter-panel {
+    width: 30%;
   }
 }

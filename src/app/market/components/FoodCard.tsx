@@ -17,6 +17,7 @@ export default function FoodCard({
     const { width } = useWindowSize()
 
     return (<>
+    
         <div className="card cursor-pointer">
             <div className="card-image">{imgUrl ? <img src={imgUrl} alt="food photo"></img> : <FaImages />}</div>
             <div className="card-header">

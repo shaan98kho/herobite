@@ -23,6 +23,8 @@ export default function Marketplace() {
     const setSearchParams = useSetSearchParams()
     const searchParams = useSearchParams()
 
+    const toggleFilter = () => setIsShowFilter(prev => !prev)
+
     const filters: Filters = useMemo(() => {
         const availableRestaurants = Array.from(new Set((foods)?.map((food) => food.restaurantUid)))
         const availableTags = Array.from(new Set((foods)?.flatMap(food => food.tags?? [])))
@@ -38,11 +40,19 @@ export default function Marketplace() {
             }
         }
     }, [foods, searchParams])
+
+    const filtered = useMemo(() => {
+        return foods
+            ?.filter(food => filters.selected.restaurants.length === 0 || filters.selected.restaurants.every(restaurant => food.restaurantUid?.includes(restaurant)))
+            ?.filter(food => filters.selected.tags.length === 0 || filters.selected.tags.every(tag => food.tags?.includes(tag)))
+    }, [foods, filters])
+
+    console.log(foods)
     
 
     if(isError) return <h2 className="py-5 px-8">There was an error loading the listing, please try again.</h2>
 
-    const foodListings = foods?.map((food) => (
+    const foodListings = filtered?.map((food) => (
         <Link href={`/market/${food.id}`} key={food.id}>
             <FoodCard 
                 restaurantUid={food.restaurantUid}
@@ -51,6 +61,7 @@ export default function Marketplace() {
                 description={food.description}
                 tags={food.tags}
                 unitPrice={food.unitPrice}
+                imgUrl={food.imgUrl}
             />
         </Link>
     ))
@@ -64,18 +75,20 @@ export default function Marketplace() {
     return (
         <div className="market">
             <SearchBar />
-            <div className="market-bottom">
+            <div className="market-bottom flex items-start gap-[10px] py-5 px-8">
                 {width && width > 910
                     ? <FilterPanel 
                             filters={filters}
                             onChangeFilters={setSearchParams}
                         />
                     : <>
-                        <button className="btn mb-4">Filter</button>
-                        <FilterPanel
-                            filters={filters}
-                            onChangeFilters={setSearchParams}
-                        />
+                        <button className="btn mb-4" onClick={toggleFilter}>Filter</button>
+                        <div className={`filter-wrap ${isShowFilter ? "" : "hidden"}`}>
+                            <FilterPanel
+                                filters={filters}
+                                onChangeFilters={setSearchParams}
+                            />
+                        </div>
                     </>
                 }
                 <div className={`card-wrap grid ${width && width<910 ? "grid-cols-2" : "grid-cols-3"} gap-[10px]`}>
