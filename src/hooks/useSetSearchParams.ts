@@ -6,18 +6,23 @@ export function useSetSearchParams() {
     const searchParams = useSearchParams()
     const pathName = usePathname()
 
-    return useCallback((updates: Record<string, string | null>) => {
+    return useCallback((updates: Record<string, string | string[] | null>) => {
         const params = new URLSearchParams(searchParams.toString())
 
         for (const [key, value] of Object.entries(updates)) {
-            if(value === null) params.delete(key)
-                else params.set(key, value)
+            params.delete(key)
+            if(value === null) continue
+            if(Array.isArray(value)) {
+                value.forEach(item => params.append(key, item))
+            } else {
+                params.set(key, value)
+            }
         }
 
-        const queryString = params.toString()
-        const href = queryString ? `${pathName}?${queryString}` : pathName
+        // const queryString = params.toString()
+        // const href = queryString ? `${pathName}?${queryString}` : pathName
 
-        router.replace(href);
+        router.replace(`${pathName}?${params.toString()}`)
 
     }, [searchParams, pathName, router])
 }

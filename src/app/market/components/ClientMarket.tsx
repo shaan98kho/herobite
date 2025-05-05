@@ -47,9 +47,6 @@ export default function Marketplace() {
             ?.filter(food => filters.selected.tags.length === 0 || filters.selected.tags.every(tag => food.tags?.includes(tag)))
     }, [foods, filters])
 
-    console.log(foods)
-    
-
     if(isError) return <h2 className="py-5 px-8">There was an error loading the listing, please try again.</h2>
 
     const foodListings = filtered?.map((food) => (
