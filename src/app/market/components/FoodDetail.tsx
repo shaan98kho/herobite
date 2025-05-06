@@ -22,6 +22,8 @@ export default function FoodDetail({
     reviews
 }: Omit<Food, "restaurantUid">) {
     const {isFav, toggleFav, isPending} = useToggleFavorite(id)
+    const createdAtDateObj = createdAt.toDate().toISOString().slice(0,16).replace("T"," ")
+    const expiryDateObj = expiryDate.toDate().toISOString().slice(0,16).replace("T"," ")
     
     return (
         <div className="py-5 px-8 flex flex-col gap-2">
@@ -43,18 +45,18 @@ export default function FoodDetail({
                     </div>
                     <h4>Quantity: {quantity}</h4>
                     <p>{description}</p>
-                    <div>
-                        <span>Created at: {createdAt.toString()}</span>
-                        <span>Expiry date: {expiryDate.toString()}</span>
+                    <div className="flex gap-1 flex-col">
+                        <span>Created at: {createdAtDateObj}</span>
+                        <span>Expiry date: {expiryDateObj}</span>
                     </div>
-                    {tags && tags.map((tag,idx)=> <span key={idx}>{tag}</span>)}
+                    <div className="flex gap-2 pt-4">{tags && tags.map((tag,idx)=> <span key={idx}>{tag}</span>)}</div>
                 </div>
             </div>
             {reviews && reviews.map((review) => {
-                return <>
+                return <div>
                     <h4>{review.rating}/5</h4>
                     <p>{review.comment}</p>
-                </>
+                </div>
             })}
         </div>
     )

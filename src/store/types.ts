@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore/lite"
+
 export interface AuthSignUp {
     email: string,
     password: string,
@@ -55,8 +57,8 @@ export interface Food {
     description: string,
     imgUrl?: string,
     quantity: number,
-    expiryDate: number,
-    createdAt: number,
+    expiryDate: Timestamp,
+    createdAt: Timestamp,
     unitPrice: number,
     tags?: string[]
     reviews?: Review[]
@@ -67,7 +69,7 @@ export interface Order {
     customerUid: string,
     restaurantUid: string,
     foodItemId: string,
-    createdAt: number
+    createdAt: Timestamp
 }
 
 export interface Review {
@@ -77,7 +79,7 @@ export interface Review {
     foodId: string,
     rating: number,
     comment?: string,
-    createdAt: number
+    createdAt: Timestamp
 }
 
 export interface Filters {
