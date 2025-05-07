@@ -9,7 +9,7 @@ import FilterPanel from "../components/FilterPanel"
 import FoodCard from "../components/FoodCard"
 import SearchBar from "../components/SearchBar"
 import FoodCardSkeleton from "../components/FoodCardSkeleton"
-import { Filters } from "@/store/types"
+import { Filters, Food } from "@/store/types"
 
 import { useFetchFoods } from "@/hooks/useFetchFoods"
 import { useSetSearchParams } from "@/hooks/useSetSearchParams"
@@ -19,6 +19,9 @@ export default function Marketplace() {
     const {data: foods, isLoading, isError} = useFetchFoods()
     const {width} = useWindowSize()
     const [isShowFilter, setIsShowFilter] = useState(false)
+    const [searchText, setSearchText] = useState('')
+    const [searchResults, setSearchResults] = useState<Food[] | null>(null)
+    
 
     const setSearchParams = useSetSearchParams()
     const searchParams = useSearchParams()
@@ -42,10 +45,18 @@ export default function Marketplace() {
     }, [foods, searchParams])
 
     const filtered = useMemo(() => {
-        return foods
-            ?.filter(food => filters.selected.restaurants.length === 0 || filters.selected.restaurants.every(restaurant => food.restaurantUid?.includes(restaurant)))
-            ?.filter(food => filters.selected.tags.length === 0 || filters.selected.tags.every(tag => food.tags?.includes(tag)))
-    }, [foods, filters])
+        if(!searchText) {
+            return foods
+                ?.filter(food => filters.selected.restaurants.length === 0 || filters.selected.restaurants.every(restaurant => food.restaurantUid?.includes(restaurant)))
+                ?.filter(food => filters.selected.tags.length === 0 || filters.selected.tags.every(tag => food.tags?.includes(tag)))
+        } else {
+            const query= searchText.toLowerCase()
+            const results = foods?.filter((food) => food.title.toLowerCase().includes(query))
+
+            return results
+        }
+    }, [foods, filters, searchText])
+
 
     if(isError) return <h2 className="py-5 px-8">There was an error loading the listing, please try again.</h2>
 
@@ -71,7 +82,7 @@ export default function Marketplace() {
  
     return (
         <div className="market">
-            <SearchBar />
+            <SearchBar searchText={searchText} setSearchText={setSearchText} />
             <div className="market-bottom flex items-start gap-[10px] py-5 px-8">
                 {width && width > 910
                     ? <FilterPanel 
