@@ -2,10 +2,12 @@
 
 import { Food } from "@/store/types"
 
-import { useStore } from "@/store/useStore"
 import { useState } from "react"
+import { useStore } from "@/store/useStore"
 
 import { useToggleFavorite } from "@/hooks/useToggleFavorite"
+
+import Toast from "@/components/Toast"
 
 import { FaImages, FaRegHeart, FaHeart } from "react-icons/fa"
 
@@ -24,17 +26,20 @@ export default function FoodDetail({
     const {isFav, toggleFav, isPending} = useToggleFavorite(id)
     const createdAtDateObj = createdAt.toDate().toISOString().slice(0,16).replace("T"," ")
     const expiryDateObj = expiryDate.toDate().toISOString().slice(0,16).replace("T"," ")
+    const currentUser = useStore(s => s.user)
+    const [toastMsg, setToastMsg] = useState<string>('')
     
-    return (
+    return (<>
+        {toastMsg && <Toast message={toastMsg} onClose={() => setToastMsg('')}/>}
         <div className="py-5 px-8 flex flex-col gap-2">
             <div className="detail-top">
                 {imgUrl 
                     ? <div className="detail-img flex items-center">
-                        <button onClick={toggleFav} className={`cursor-pointer ${isFav ? "active" : ""}`}><FaHeart/></button>
+                        <button onClick={currentUser ? toggleFav : () => setToastMsg('Please login first!')} className={`cursor-pointer ${isFav ? "active" : ""}`}><FaHeart/></button>
                         <img src={imgUrl}></img>
                     </div>
                     : <div className="detail-img flex items-center">
-                        <button onClick={toggleFav}  className={`cursor-pointer ${isFav ? "active" : ""}`}><FaHeart /></button>
+                        <button onClick={currentUser ? toggleFav : () => setToastMsg('Please login first!')}  className={`cursor-pointer ${isFav ? "active" : ""}`}><FaHeart /></button>
                         <FaImages />
                     </div>
                 }
@@ -59,5 +64,6 @@ export default function FoodDetail({
                 </div>
             })}
         </div>
+    </>
     )
 }

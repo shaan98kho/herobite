@@ -8,8 +8,6 @@ import { useFetchSingleFood } from "@/hooks/useFetchSingleFood"
 import FoodDetail from "../components/FoodDetail"
 import BackButton from "../components/BackButton"
 
-
-
 export default function FoodItem() {
     const params = useParams()
     const raw = params.id
