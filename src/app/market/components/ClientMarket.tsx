@@ -102,7 +102,7 @@ export default function Marketplace() {
                         </div>
                     </>
                 }
-                <div className={`card-wrap grid ${width && width<910 ? "grid-cols-2" : "grid-cols-3"} gap-[10px]`}>
+                <div className={`card-wrap grid grid-cols-2 md:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-[10px]`}>
                     {isLoading ? lazyListings() : foodListings}
                 </div>
             </div>

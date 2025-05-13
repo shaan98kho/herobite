@@ -72,6 +72,14 @@ export interface Order {
     createdAt: Timestamp
 }
 
+export interface CartItem {
+    foodId: string,
+    quantity: number,
+    addedAt: Timestamp,
+    foodTitle: string,
+    imgUrl: string
+}
+
 export interface Review {
     reviewId: string,
     customerUid: string,

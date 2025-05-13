@@ -14,7 +14,9 @@ export default function RootLayout({
       <body>
         <div className="flex flex-col min-h-screen w-full">
           <ReactQueryProvider>
-            <NavBar />
+            <header>
+              <NavBar />
+            </header>
             <main className="pb-20">
               {children}
             </main>
