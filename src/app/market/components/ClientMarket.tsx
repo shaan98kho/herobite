@@ -86,7 +86,7 @@ export default function Marketplace() {
     return (
         <div className="market">
             <SearchBar searchText={searchText} setSearchText={setSearchText} />
-            <div className="market-bottom flex items-start gap-[10px] py-5 px-8">
+            <div className="market-bottom flex items-start gap-[10px] py-5">
                 {width && width > 910
                     ? <FilterPanel 
                             filters={filters}

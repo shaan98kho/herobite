@@ -6,7 +6,7 @@ import { Food } from "@/store/types"
 import useWindowSize from "@/hooks/useWindowSize"
 import { useImagePreloader } from "@/hooks/useImagePreloader"
 import { FaImages } from "react-icons/fa"
-import { IoCart } from "react-icons/io5"
+import { FaBagShopping } from "react-icons/fa6"
 import { FiLoader } from "react-icons/fi"
 
 export default function FoodCard({
@@ -42,12 +42,12 @@ export default function FoodCard({
                     <div className="card-content">
                         <p>{description}</p>
                     </div>
-                    <div className="card-metadata">s
+                    <div className="card-metadata pt-8">
                         {tags?.map(tag => <span key={tag}>{tag}</span>)}
                     </div>
                 </>
             }
-            <button className="btn gap-2" onClick={handleCart}><IoCart /><span>Add to card</span></button>
+            <button className="btn gap-2 mt-auto" onClick={handleCart}><FaBagShopping className="pb-1"/><span>Add to bag</span></button>
         </div>
     </>)
 }

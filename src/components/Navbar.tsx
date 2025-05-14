@@ -13,12 +13,14 @@ import { useStore } from "@/store/useStore"
 
 import { IoMenuOutline, IoClose } from "react-icons/io5"
 import { FaUserCircle } from "react-icons/fa"
+import { FaBagShopping } from "react-icons/fa6"
 
 export default function NavBar() {
     const { width } = useWindowSize()
     const [isPanelOpen, setIsPanelOpen] = useState(false)
     const currentUser = useStore(s => s.user)
     const signOut = useStore(s => s.logout)
+    const cart = useStore(s => s.cart)
     
     
     const handleTogglePanel = () => {
@@ -31,7 +33,7 @@ export default function NavBar() {
 
     const path = usePathname()
 
-    const userIcon = currentUser && <button className="cursor-pointer flex items-center flex-row-reverse gap-[10px]" onClick={signOut}><div className="user-icon"><FaUserCircle /></div><span>{currentUser.name}</span></button>
+    const userIcon = currentUser && <button className={`cursor-pointer flex items-center flex-row-reverse gap-[10px] ${width && width > 910 ? "" : ""}`} onClick={signOut}><div className="user-icon"><FaUserCircle /></div><span>{currentUser.name}</span></button>
 
 
     const ref = useRef<HTMLDivElement>(null)
@@ -47,20 +49,26 @@ export default function NavBar() {
     }
 
     return <>
-        <nav className="navbar flex gap-12 items-center justify-end">
-            <Link href="/" className="logo mr-auto cursor-pointer leading-[60px]">Hero Bite</Link>
-
-            {width && width < 910 
-            ? (<button className="w-9 h-9" onClick={handleTogglePanel}><IoMenuOutline className="w-full h-full cursor-pointer" /></button>)
-            : navElements()
-            }
-
-            {width && width > 910 && userIcon}
-            {/* {currentUser && <span onClick={signOut} className="cursor-pointer">Sign Out</span>} */}
+        <nav className={`navbar relative`}>
+            <Link href="/" className={`logo cursor-pointer leading-[60px] flex w-full justify-center items-center ${width && width > 910 ? "pb-4" : ""}`}>Hero Bite</Link>
+            <div className="navbar-metadata flex items-center gap-2 absolute top-[25px] right-[32px]">
+                {(width && width > 910) && userIcon}
+                <div className="relative">
+                    {(cart && cart.quantity > 0 ) ?? <div className="badge absolute">{cart?.quantity}</div>}
+                    <div className="navbar-icon"><FaBagShopping /></div>
+                </div>
+            </div>
+            
+            <div className="flex gap-12 items-center justify-center">
+                {width && width < 910 
+                    ? (<button className="w-9 h-9 absolute top-[19px] left-[16px]" onClick={handleTogglePanel}><IoMenuOutline className="w-full h-full cursor-pointer" /></button>)
+                    : navElements()}
+            </div>
+            
         </nav>
         {width && width < 910 && (
-            <div ref={ref} className={`nav-panel fixed top-0 right-0 w-[80%] h-full z-[1] transition-transform duration-300 ease-out transform flex items-center justify-start flex-col gap-8 ${isPanelOpen ? "translate-x-0" : "translate-x-full"}`}>
-                <button className="w-9 h-9 absolute right-8 top-[18px]" onClick={handleTogglePanel}><IoClose className="w-full h-full cursor-pointer" /></button>
+            <div ref={ref} className={`nav-panel fixed top-0 left-0 w-[70%] h-full z-[1] transition-transform duration-300 ease-out transform flex items-center justify-start flex-col gap-8 ${isPanelOpen ? "translate-x-0" : "-translate-x-full"}`}>
+                <button className="w-9 h-9 absolute left-4 top-[18px]" onClick={handleTogglePanel}><IoClose className="w-full h-full cursor-pointer" /></button>
                 {navElements()}
                 {userIcon}
             </div>

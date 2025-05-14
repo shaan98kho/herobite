@@ -61,42 +61,59 @@ a:not(svg) {
   font-size: 14px;
 }
 
-.navbar {
+header {
   background: var(--white);
-  padding: 12px 32px;
+}
+
+.navbar {
+  padding: 12px 16px;
   font-size: 18px;
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
 }
 
-.navbar > a:not(.logo),
-.navbar > button {
+.navbar a:not(.logo),
+.navbar button {
   color: var(--black);
   transition: all ease-in-out 0.2s;
 }
 
-.nav-panel > a,
+.nav-panel a,
 .nav-panel svg {
   color: var(--black);
   transition: all ease-in-out 0.2s;
 }
 
-.navbar > a:not(.logo):hover,
-.nav-panel > a:hover,
+.navbar a:not(.logo):hover,
+.nav-panel a:hover,
 .nav-panel svg:hover  {
   color: var(--secondary);
   font-weight: 700;
 }
 
-.navbar > a.active,
-.nav-panel > a.active {
+.navbar a.active,
+.nav-panel a.active {
   color: var(--primary);
 }
 
-.user-icon {
-  width: 32px;
-  height: 32px;
+.badge {
+  width: fit-content;
+  padding: 0 4px;
+  background: var(--secondary);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  font-size: 13px;
+  right: -7px;
+  top: -2px;
+  font-weight: bold;
+}
+
+.user-icon,
+.navbar-icon {
+  width: 28px;
+  height: 28px;
 
   > svg {
     width: 100%;
@@ -108,14 +125,13 @@ a:not(svg) {
   color: var(--accent);
   font-family: 'Sedgwick Ave Display', cursive;
   text-shadow: 4px 0 var(--secondary);
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 700;
-  width: fit-content;
 }
 
 .nav-panel {
   background: var(--white);
-  padding: 64px 32px;
+  padding: 64px 16px;
 }
 
 footer {
@@ -250,7 +266,7 @@ main {
   cursor: pointer;
 
   >svg {
-    width: 24px;
+    width: 18px;
     height: 100%;
   }
 }
@@ -322,10 +338,10 @@ main {
 .market {
   display: flex;
   flex-direction: column;
+  padding: 12px 16px;
 }
 
 .search-panel {
-  padding: 20px 32px;
   position: relative;
 
   >input {
@@ -351,8 +367,8 @@ main {
 
   >svg {
     position: absolute;
-    left: 32px;
-    top: 22px;
+    left: 0;
+    top: 0;
     width: 22px;
     height: 22px;
   }
@@ -439,7 +455,7 @@ main {
 
 .card-metadata {
   display: flex;
-  gap: 16px;
+  gap: 4px 16px;
   margin-top: auto;
   flex-wrap: wrap;
 
@@ -559,13 +575,27 @@ main {
   }
 }
 
+@media only screen and (min-width: 460px) {
+  .logo {
+    font-size: 48px;
+  }
+}
+
 @media only screen and (min-width: 910px) {
+  .navbar {
+    padding: 12px 32px;
+  }
+
   .logo {
     font-size: 64px;
   }
 
   .market-bottom {
     flex-direction: row;
+  }
+
+  .market {
+    padding: 20px 32px;
   }
 
   .card-wrap {
