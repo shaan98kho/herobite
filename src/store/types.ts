@@ -75,9 +75,9 @@ export interface Order {
 export interface CartItem {
     foodId: string,
     quantity: number,
-    addedAt: Timestamp,
+    addedAt: number,
     foodTitle: string,
-    imgUrl: string
+    imgUrl?: string
 }
 
 export interface Review {

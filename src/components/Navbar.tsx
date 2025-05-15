@@ -13,16 +13,16 @@ import { useStore } from "@/store/useStore"
 
 import { IoMenuOutline, IoClose } from "react-icons/io5"
 import { FaUserCircle } from "react-icons/fa"
-import { FaBagShopping } from "react-icons/fa6"
+import { LuShoppingBasket } from "react-icons/lu"
 
 export default function NavBar() {
     const { width } = useWindowSize()
     const [isPanelOpen, setIsPanelOpen] = useState(false)
     const currentUser = useStore(s => s.user)
     const signOut = useStore(s => s.logout)
-    const cart = useStore(s => s.cart)
+    const cart = useStore(s => s.cartItems)
     
-    
+    console.log(cart)
     const handleTogglePanel = () => {
         setIsPanelOpen((prev) => !prev)
     }
@@ -35,27 +35,29 @@ export default function NavBar() {
 
     const userIcon = currentUser && <button className={`cursor-pointer flex items-center flex-row-reverse gap-[10px] ${width && width > 910 ? "" : ""}`} onClick={signOut}><div className="user-icon"><FaUserCircle /></div><span>{currentUser.name}</span></button>
 
-
     const ref = useRef<HTMLDivElement>(null)
     useOnClickOutside({ref: ref, handler: closePanel})
+
+    const cartItemsCount = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0)
 
     const navElements = () => {
         return <>
             <Link href="/" className={`${path === "/" ? "active font-bold" : ""}`}>Home</Link>
             <Link href="/about" className={`${path === "/about" ? "active font-bold" : ""}`}>About Us</Link>
             <Link href="/market" className={`${path === "/market" ? "active font-bold" : ""}`}>Market</Link>
-            {!currentUser && <Link href="/auth/signIn" className={`${path === "/auth/signIn" ? "active font-bold" : ""}`}>Sign In</Link>}
+            {((width && width < 910) && !currentUser) && <Link href="/auth/signIn" className={`${path === "/auth/signIn" ? "active font-bold" : ""}`}>Sign In</Link>}
         </>
     }
 
     return <>
         <nav className={`navbar relative`}>
-            <Link href="/" className={`logo cursor-pointer leading-[60px] flex w-full justify-center items-center ${width && width > 910 ? "pb-4" : ""}`}>Hero Bite</Link>
-            <div className="navbar-metadata flex items-center gap-2 absolute top-[25px] right-[32px]">
+            <Link href="/" className={`logo cursor-pointer leading-[60px] mx-auto flex w-full justify-center items-center ${width && width > 910 ? "pb-4" : ""}`}>Hero Bite</Link>
+            <div className="navbar-metadata flex items-center gap-2 absolute">
+                {!currentUser && <Link href="/auth/signIn" className={`${path === "/auth/signIn" ? "active font-bold" : ""}`}>Sign In</Link>}
                 {(width && width > 910) && userIcon}
                 <div className="relative">
-                    {(cart && cart.quantity > 0 ) ?? <div className="badge absolute">{cart?.quantity}</div>}
-                    <div className="navbar-icon"><FaBagShopping /></div>
+                    {cartItemsCount ? <div className="badge absolute">{cartItemsCount}</div> : ""}
+                    <div className="navbar-icon cursor-pointer"><LuShoppingBasket /></div>
                 </div>
             </div>
             

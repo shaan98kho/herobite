@@ -11,12 +11,14 @@ export default function Footer() {
             </svg>
         </div>
 
-        <div className="footer-wrap flex items-start justify-start gap-3 ">
+        <div className="footer-wrap">
+            <Link href="/" className="logo block leading-[48px] mx-auto">Hero Bite</Link>
+            <div className="footer-metadata flex items-start justify-start gap-3">
 
                 <div className="flex-1">
-                    <Link href="/" className="logo block leading-[48px]">Hero Bite</Link>
+                    
                     <span className="text-[10px] credits">Developed by <a target="_blank" href="https://www.linkedin.com/in/wen-qi-k-966581138/">Wen Qi</a></span>
-                    <div className="external-links flex items-center gap-2  pt-8">
+                    <div className="external-links flex items-center gap-2  pt-2">
                         <a target="_blank" href="https://github.com/shaan98kho/herobite" rel="noopener noreferrer"
                         ><FaGithub/></a>
                         <a target="_blank" href="https://www.linkedin.com/in/wen-qi-k-966581138/" rel="noopener noreferrer"><FaLinkedin/></a>
@@ -28,6 +30,7 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="flex-1"></div>
+            </div>
         </div>
         
     </footer>

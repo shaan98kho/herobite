@@ -2,14 +2,19 @@
 
 
 import { useState } from "react"
+
 import { Food } from "@/store/types"
+import { useStore } from '@/store/useStore'
+
 import useWindowSize from "@/hooks/useWindowSize"
 import { useImagePreloader } from "@/hooks/useImagePreloader"
+
 import { FaImages } from "react-icons/fa"
 import { FaBagShopping } from "react-icons/fa6"
 import { FiLoader } from "react-icons/fi"
 
 export default function FoodCard({
+    id,
     title,
     description,
     imgUrl,
@@ -18,8 +23,15 @@ export default function FoodCard({
 }: Omit<Food, "quantity" | "expiryDate" | "createdAt">) {
     const { width } = useWindowSize()
     const imgStatus = useImagePreloader(imgUrl ? imgUrl : null)
-    const handleCart = (e:React.MouseEvent<HTMLButtonElement>): void => {
+    const addToCart = useStore(s => s.addToCart)
+    
+    const handleCart = (
+        e:React.MouseEvent<HTMLButtonElement>,
+        id: string,
+        foodTitle: string,
+        imgUrl: string): void => {
         e.preventDefault()
+        addToCart({id, foodTitle, imgUrl})
         console.log("click")
     }
 
@@ -47,7 +59,7 @@ export default function FoodCard({
                     </div>
                 </>
             }
-            <button className="btn gap-2 mt-auto" onClick={handleCart}><FaBagShopping className="pb-1"/><span>Add to bag</span></button>
+            <button className="btn gap-2 mt-auto" onClick={(e) => handleCart(e, id, title, imgUrl ?? "")}><FaBagShopping className="pb-1"/><span>Add to bag</span></button>
         </div>
     </>)
 }

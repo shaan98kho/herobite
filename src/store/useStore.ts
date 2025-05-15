@@ -25,7 +25,7 @@ export const useStore = create<MyState>()(
         user: state.user,
         customer: state.customer,
         restaurant: state.restaurant,
-        cart: state.cart
+        cartItems: state.cartItems
       }),
     }
   )

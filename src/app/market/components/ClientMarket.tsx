@@ -20,11 +20,6 @@ export default function Marketplace() {
     const {width} = useWindowSize()
     const [isShowFilter, setIsShowFilter] = useState(false)
     const [searchText, setSearchText] = useState('')
-    // create new image()
-    // create new promise
-    // pass in src
-    // if img loaded pass to card and display
-    // otherwise show lazy card
 
     const setSearchParams = useSetSearchParams()
     const searchParams = useSearchParams()
@@ -82,6 +77,8 @@ export default function Marketplace() {
             <FoodCardSkeleton key={i} />
         ))
     }
+
+    // grid grid-cols-2 md:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-[10px]
  
     return (
         <div className="market">
