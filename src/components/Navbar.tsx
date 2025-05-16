@@ -9,6 +9,8 @@ import { usePathname } from "next/navigation"
 import useWindowSize from "@/hooks/useWindowSize"
 import useOnClickOutside from "@/hooks/useOnClickOutside"
 
+import Cart from "./Cart"
+
 import { useStore } from "@/store/useStore"
 
 import { IoMenuOutline, IoClose } from "react-icons/io5"
@@ -18,11 +20,11 @@ import { LuShoppingBasket } from "react-icons/lu"
 export default function NavBar() {
     const { width } = useWindowSize()
     const [isPanelOpen, setIsPanelOpen] = useState(false)
+    const [isCartOpen, setIisCartOpen] = useState(false)
     const currentUser = useStore(s => s.user)
     const signOut = useStore(s => s.logout)
     const cart = useStore(s => s.cartItems)
     
-    console.log(cart)
     const handleTogglePanel = () => {
         setIsPanelOpen((prev) => !prev)
     }
@@ -75,5 +77,6 @@ export default function NavBar() {
                 {userIcon}
             </div>
         )}
+        {isCartOpen && <Cart />}
     </>
 }

@@ -77,7 +77,9 @@ export interface CartItem {
     quantity: number,
     addedAt: number,
     foodTitle: string,
-    imgUrl?: string
+    imgUrl?: string,
+    userId?: string,
+    price: number
 }
 
 export interface Review {

@@ -15,7 +15,9 @@ export type CartSlice = {
 type CartProps = {
     id: string,
     foodTitle: string,
-    imgUrl: string
+    imgUrl: string,
+    availableQty: number,
+    price: number
 }
 
 export const createCartSlice: StateCreator<CartSlice> = (set) => ({
@@ -24,18 +26,24 @@ export const createCartSlice: StateCreator<CartSlice> = (set) => ({
     error: null,
     success: false,
 
-    addToCart: ({id, foodTitle, imgUrl}: CartProps) => {
+    addToCart: ({id, foodTitle, imgUrl, availableQty, price}: CartProps) => {
         try {
             set(s => {
                 const now = Date.now()
                 const existing = s.cartItems[id]?.quantity || 0
+                console.log(availableQty)
+                
+                if (existing + 1 > availableQty) {
+                    throw new Error("Cannot add more than available stock");
+                }
                 
                 const newItem: CartItem = {
                     foodId: id,
                     quantity: existing + 1,
                     addedAt: now,
                     foodTitle: foodTitle,
-                    imgUrl: imgUrl ?? null
+                    imgUrl: imgUrl ?? null,
+                    price: price
                 }
                 return {
                     cartItems: {

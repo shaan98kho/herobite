@@ -68,6 +68,7 @@ export default function Marketplace() {
                 tags={food.tags}
                 unitPrice={food.unitPrice}
                 imgUrl={food.imgUrl}
+                quantity={food.quantity}
             />
         </Link>
     ))

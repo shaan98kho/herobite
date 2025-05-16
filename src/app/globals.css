@@ -278,6 +278,13 @@ main {
   }
 }
 
+.btn.disabled,
+.btn.disabled:hover {
+  background: var(--borderGray);
+  color: var(--darkGray);
+  cursor: default;
+}
+
 .btn-alt {
   color: var(--primary);
   font-size: 18px;

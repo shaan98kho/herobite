@@ -8,8 +8,9 @@ import { useStore } from "@/store/useStore"
 import { useToggleFavorite } from "@/hooks/useToggleFavorite"
 
 import Toast from "@/components/Toast"
+import AddToCartBtn from "./AddToCartBtn"
 
-import { FaImages, FaRegHeart, FaHeart } from "react-icons/fa"
+import { FaImages, FaHeart } from "react-icons/fa"
 
 export default function FoodDetail({
     id,
@@ -55,6 +56,13 @@ export default function FoodDetail({
                         <span>Expiry date: {expiryDateObj}</span>
                     </div>
                     <div className="flex gap-2 pt-4">{tags && tags.map((tag,idx)=> <span key={idx}>{tag}</span>)}</div>
+                    <AddToCartBtn 
+                        foodId={id}
+                        quantity={quantity}
+                        foodTitle={title}
+                        imgUrl={imgUrl}
+                        price={unitPrice}
+                    />
                 </div>
             </div>
             {reviews && reviews.map((review) => {

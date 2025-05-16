@@ -9,8 +9,9 @@ import { useStore } from '@/store/useStore'
 import useWindowSize from "@/hooks/useWindowSize"
 import { useImagePreloader } from "@/hooks/useImagePreloader"
 
+import AddToCartBtn from "./AddToCartBtn"
+
 import { FaImages } from "react-icons/fa"
-import { FaBagShopping } from "react-icons/fa6"
 import { FiLoader } from "react-icons/fi"
 
 export default function FoodCard({
@@ -19,22 +20,11 @@ export default function FoodCard({
     description,
     imgUrl,
     tags,
-    unitPrice
-}: Omit<Food, "quantity" | "expiryDate" | "createdAt">) {
+    unitPrice,
+    quantity
+}: Omit<Food, "expiryDate" | "createdAt">) {
     const { width } = useWindowSize()
     const imgStatus = useImagePreloader(imgUrl ? imgUrl : null)
-    const addToCart = useStore(s => s.addToCart)
-    
-    const handleCart = (
-        e:React.MouseEvent<HTMLButtonElement>,
-        id: string,
-        foodTitle: string,
-        imgUrl: string): void => {
-        e.preventDefault()
-        addToCart({id, foodTitle, imgUrl})
-        console.log("click")
-    }
-
     const imgElement = imgStatus === "loading" 
                                 ? <div className="card-image skeleton"></div>
                                 : imgStatus === "no-src" 
@@ -59,7 +49,13 @@ export default function FoodCard({
                     </div>
                 </>
             }
-            <button className="btn gap-2 mt-auto" onClick={(e) => handleCart(e, id, title, imgUrl ?? "")}><FaBagShopping className="pb-1"/><span>Add to bag</span></button>
+            <AddToCartBtn 
+                foodId={id}
+                quantity={quantity}
+                foodTitle={title}
+                imgUrl={imgUrl}
+                price={unitPrice}
+            />
         </div>
     </>)
 }
