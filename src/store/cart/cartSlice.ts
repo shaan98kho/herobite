@@ -9,7 +9,7 @@ export type CartSlice = {
 
     addToCart: (d: CartProps) => void,
     removeItemFromCart: (id: string) => void,
-    clearExpired: (id: string) => void
+    clearExpired: () => void
 }
 
 type CartProps = {
@@ -65,7 +65,18 @@ export const createCartSlice: StateCreator<CartSlice> = (set) => ({
             return {cartItems: nxt}
         })
     },
-    clearExpired: (id: string) => {
-        
+    clearExpired: () => {
+        set(s => {
+            const expiryTime = 72 * 60 * 60 * 1000
+            const now = Date.now()
+            const nxt: Record<string, CartItem> = {}
+            
+            for (const [key, item] of Object.entries(s.cartItems)) {
+                if(now - item.addedAt < expiryTime) {
+                    nxt[key] = item
+                }
+            }
+            return {cartItems: nxt}
+        })
     }
 })

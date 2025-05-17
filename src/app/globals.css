@@ -135,7 +135,8 @@ header {
   width: fit-content;
 }
 
-.nav-panel {
+.nav-panel,
+.cart-panel {
   background: var(--white);
   padding: 64px 16px;
 }

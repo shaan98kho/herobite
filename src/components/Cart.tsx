@@ -5,7 +5,8 @@ import CartList from "./CartList"
 import { useStore } from "@/store/useStore"
 
 export default function Cart() {
-    const cart = useStore(s => s.cartItems)
+    const cartItems = useStore(s => s.cartItems)
+    console.log(cartItems)
     
     
     return <>

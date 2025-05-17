@@ -2,7 +2,7 @@
 
 import "./../app/globals.css"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -19,26 +19,33 @@ import { LuShoppingBasket } from "react-icons/lu"
 
 export default function NavBar() {
     const { width } = useWindowSize()
-    const [isPanelOpen, setIsPanelOpen] = useState(false)
-    const [isCartOpen, setIisCartOpen] = useState(false)
     const currentUser = useStore(s => s.user)
     const signOut = useStore(s => s.logout)
     const cart = useStore(s => s.cartItems)
-    
-    const handleTogglePanel = () => {
-        setIsPanelOpen((prev) => !prev)
+    const clearExpired = useStore(s => s.clearExpired)
+
+    useEffect(() => {
+        clearExpired()
+    }, [clearExpired])
+
+    function useToggle(init = false) {
+        const [on, setOn] = useState(init)
+        const toggle = () => setOn(prev => !prev)
+        const off = () => setOn(false)
+        return {on, toggle, off}
     }
 
-    const closePanel = () => {
-        setIsPanelOpen(false)
-    }
+    const navPanel = useToggle()
+    const cartPanel = useToggle()
 
     const path = usePathname()
 
     const userIcon = currentUser && <button className={`cursor-pointer flex items-center flex-row-reverse gap-[10px] ${width && width > 910 ? "" : ""}`} onClick={signOut}><div className="user-icon"><FaUserCircle /></div><span>{currentUser.name}</span></button>
 
-    const ref = useRef<HTMLDivElement>(null)
-    useOnClickOutside({ref: ref, handler: closePanel})
+    const navRef = useRef<HTMLDivElement>(null)
+    const cartRef = useRef<HTMLDivElement>(null)
+    useOnClickOutside({ref: cartRef, handler: cartPanel.off})
+    useOnClickOutside({ref: navRef, handler: navPanel.off})
 
     const cartItemsCount = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0)
 
@@ -59,24 +66,27 @@ export default function NavBar() {
                 {(width && width > 910) && userIcon}
                 <div className="relative">
                     {cartItemsCount ? <div className="badge absolute">{cartItemsCount}</div> : ""}
-                    <div className="navbar-icon cursor-pointer"><LuShoppingBasket /></div>
+                    <div className="navbar-icon cursor-pointer" onClick={cartPanel.toggle}><LuShoppingBasket /></div>
                 </div>
             </div>
             
             <div className="flex gap-12 items-center justify-center">
                 {width && width < 910 
-                    ? (<button className="w-9 h-9 absolute top-[19px] left-[16px]" onClick={handleTogglePanel}><IoMenuOutline className="w-full h-full cursor-pointer" /></button>)
+                    ? (<button className="w-9 h-9 absolute top-[19px] left-[16px]" onClick={navPanel.toggle}><IoMenuOutline className="w-full h-full cursor-pointer" /></button>)
                     : navElements()}
             </div>
             
         </nav>
         {width && width < 910 && (
-            <div ref={ref} className={`nav-panel fixed top-0 left-0 w-[70%] h-full z-[1] transition-transform duration-300 ease-out transform flex items-center justify-start flex-col gap-8 ${isPanelOpen ? "translate-x-0" : "-translate-x-full"}`}>
-                <button className="w-9 h-9 absolute left-4 top-[18px]" onClick={handleTogglePanel}><IoClose className="w-full h-full cursor-pointer" /></button>
+            <div ref={navRef} className={`nav-panel fixed top-0 left-0 w-[70%] h-full z-[1] transition-transform duration-300 ease-out transform flex items-center justify-start flex-col gap-8 ${navPanel.on ? "translate-x-0" : "-translate-x-full"}`}>
+                <button className="w-9 h-9 absolute left-4 top-[18px]" onClick={navPanel.toggle}><IoClose className="w-full h-full cursor-pointer" /></button>
                 {navElements()}
                 {userIcon}
             </div>
         )}
-        {isCartOpen && <Cart />}
+        {<div ref={cartRef} className={`cart-panel fixed top-0 right-0 w-[70%] h-full z-[1] transition-transform duration-300 ease-out transform flex items-center justify-start flex-col gap-8 ${cartPanel.on ? "translate-x-0" : "translate-x-full"}`}>
+                <button className="w-9 h-9 absolute right-4 top-[18px]" onClick={cartPanel.toggle}><IoClose className="w-full h-full cursor-pointer" /></button>
+                <Cart />
+            </div>}
     </>
 }
