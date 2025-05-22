@@ -19,9 +19,6 @@ export function useSetSearchParams() {
             }
         }
 
-        // const queryString = params.toString()
-        // const href = queryString ? `${pathName}?${queryString}` : pathName
-
         router.replace(`${pathName}?${params.toString()}`)
 
     }, [searchParams, pathName, router])

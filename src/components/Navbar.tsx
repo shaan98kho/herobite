@@ -84,7 +84,7 @@ export default function NavBar() {
                 {userIcon}
             </div>
         )}
-        {<div ref={cartRef} className={`cart-panel fixed top-0 right-0 w-[70%] h-full z-[1] transition-transform duration-300 ease-out transform flex items-center justify-start flex-col gap-8 ${cartPanel.on ? "translate-x-0" : "translate-x-full"}`}>
+        {<div ref={cartRef} className={`cart-panel fixed top-0 right-0 ${width && width > 910 ? "w-[45%]" : "w-[70%]"} h-full z-[1] transition-transform duration-300 ease-out transform hide-scrollbar flex items-center justify-start flex-col gap-8 ${cartPanel.on ? "translate-x-0" : "translate-x-full"}`}>
                 <button className="w-9 h-9 absolute right-4 top-[18px]" onClick={cartPanel.toggle}><IoClose className="w-full h-full cursor-pointer" /></button>
                 <Cart />
             </div>}

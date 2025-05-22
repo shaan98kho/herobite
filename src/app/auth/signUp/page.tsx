@@ -29,17 +29,15 @@ export default function SignUp() {
     const [pwError, setPwError] = useState<string>()
     const [userRole, setuserRole] = useState<string>('')
     const [toastMsg, setToastMsg] = useState<string>('')
-    const [isShowPassword, setIsShowPassword] = useState(false)
-    const [isShowConfirm, setIsShowConfirm] = useState(false)
+    function useTogglePw(init = false) {
+        const [isShowPw, setIsShowPw] = useState(init)
+        const togglePw = () => setIsShowPw(prev => !prev)
+        return {isShowPw, togglePw}
+    }
     const router = useRouter()
 
-    const togglePassword = () => {
-        setIsShowPassword((prev) => !prev)
-    }
-
-    const toggleConfirm = () => {
-        setIsShowConfirm((prev) => !prev)
-    }
+    const pw = useTogglePw()
+    const confirmPw = useTogglePw()
 
     const clearInput = () => {
         setFormData(() => {
@@ -163,9 +161,9 @@ export default function SignUp() {
                     </div>
                     <div className="field-wrap">
                         <label htmlFor="password">Password</label>
-                        {isShowPassword ? <FaEyeSlash onClick={togglePassword}/> : <FaEye onClick={togglePassword}/>}
+                        {pw.isShowPw ? <FaEyeSlash onClick={pw.togglePw}/> : <FaEye onClick={pw.togglePw}/>}
                         <input 
-                            type={isShowPassword ? "text" : "password"}
+                            type={pw.isShowPw ? "text" : "password"}
                             id="password"
                             name="password"
                             value={formData.password}
@@ -177,9 +175,9 @@ export default function SignUp() {
                     </div>
                     <div className="field-wrap">
                         <label htmlFor="confirmPassword">Confirm your password</label>
-                        {isShowConfirm ? <FaEyeSlash onClick={toggleConfirm}/> : <FaEye onClick={toggleConfirm} />}
+                        {confirmPw.isShowPw ? <FaEyeSlash onClick={confirmPw.togglePw}/> : <FaEye onClick={confirmPw.togglePw} />}
                         <input 
-                            type={isShowConfirm ? "text" : "password"}
+                            type={confirmPw.isShowPw ? "text" : "password"}
                             id="confirmPassword"
                             name="confirmPassword"
                             value={confirmPassword}
