@@ -64,9 +64,9 @@ export default function NavBar() {
             <div className="navbar-metadata flex items-center gap-2 absolute">
                 {!currentUser && <Link href="/auth/signIn" className={`${path === "/auth/signIn" ? "active font-bold" : ""}`}>Sign In</Link>}
                 {(width && width > 910) && userIcon}
-                <div className="relative">
+                <div className="relative cursor-pointer">
                     {cartItemsCount ? <div className="badge absolute">{cartItemsCount}</div> : ""}
-                    <div className="navbar-icon cursor-pointer" onClick={cartPanel.toggle}><LuShoppingBasket /></div>
+                    <div className="navbar-icon" onClick={cartPanel.toggle}><LuShoppingBasket /></div>
                 </div>
             </div>
             
