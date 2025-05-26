@@ -3,6 +3,7 @@ import Link from "next/link"
 import "./globals.css"
 import Footer from "@/components/Footer"
 import ReactQueryProvider from "@/components/ReactQueryProvider"
+import { Analytics } from '@vercel/analytics/next'
 
 
 export default function RootLayout({
@@ -24,6 +25,7 @@ export default function RootLayout({
             <Footer />
           </ReactQueryProvider>
         </div>
+        <Analytics />
       </body>
     </html>
   );
