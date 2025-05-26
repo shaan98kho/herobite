@@ -4,21 +4,23 @@ import "./../app/globals.css"
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 import useWindowSize from "@/hooks/useWindowSize"
 import useOnClickOutside from "@/hooks/useOnClickOutside"
 
 import Cart from "./Cart"
+import Drawer from "./Drawer"
 
 import { useStore } from "@/store/useStore"
 
-import { IoMenuOutline, IoClose } from "react-icons/io5"
+import { IoMenuOutline } from "react-icons/io5"
 import { FaUserCircle } from "react-icons/fa"
 import { LuShoppingBasket } from "react-icons/lu"
 
 export default function NavBar() {
     const { width } = useWindowSize()
+    const router = useRouter()
     const currentUser = useStore(s => s.user)
     const signOut = useStore(s => s.logout)
     const cart = useStore(s => s.cartItems)
@@ -62,11 +64,11 @@ export default function NavBar() {
         <nav className={`navbar relative`}>
             <Link href="/" className={`logo cursor-pointer leading-[60px] mx-auto flex w-full justify-center items-center ${width && width > 910 ? "pb-4" : ""}`}>Hero Bite</Link>
             <div className="navbar-metadata flex items-center gap-2 absolute">
-                {!currentUser && <Link href="/auth/signIn" className={`${path === "/auth/signIn" ? "active font-bold" : ""}`}>Sign In</Link>}
+                {!currentUser && <Link href="/auth/signIn"><FaUserCircle /></Link>}
                 {(width && width > 910) && userIcon}
-                <div className="relative cursor-pointer">
+                <div className="relative cursor-pointer" onClick={width && width > 460 ? (cartPanel.toggle) : (() => router.push("/cart"))}>
                     {cartItemsCount ? <div className="badge absolute">{cartItemsCount}</div> : ""}
-                    <div className="navbar-icon" onClick={cartPanel.toggle}><LuShoppingBasket /></div>
+                    <div className="navbar-icon"><LuShoppingBasket /></div>
                 </div>
             </div>
             
@@ -78,15 +80,26 @@ export default function NavBar() {
             
         </nav>
         {width && width < 910 && (
-            <div ref={navRef} className={`nav-panel fixed top-0 left-0 w-[70%] h-full z-[1] transition-transform duration-300 ease-out transform flex items-center justify-start flex-col gap-8 ${navPanel.on ? "translate-x-0" : "-translate-x-full"}`}>
-                <button className="w-9 h-9 absolute left-4 top-[18px]" onClick={navPanel.toggle}><IoClose className="w-full h-full cursor-pointer" /></button>
-                {navElements()}
-                {userIcon}
-            </div>
+            <>
+                <Drawer 
+                    children= {<>{navElements()} {userIcon}</>}
+                    direction="left"
+                    ref={navRef}
+                    isOn={navPanel.on}
+                    toggle={navPanel.toggle}
+                />
+            </>
         )}
-        {<div ref={cartRef} className={`cart-panel fixed top-0 right-0 ${width && width > 910 ? "w-[45%]" : "w-[70%]"} h-full z-[1] transition-transform duration-300 ease-out transform hide-scrollbar flex items-center justify-start flex-col gap-8 ${cartPanel.on ? "translate-x-0" : "translate-x-full"}`}>
-                <button className="w-9 h-9 absolute right-4 top-[18px]" onClick={cartPanel.toggle}><IoClose className="w-full h-full cursor-pointer" /></button>
+        
+        <Drawer 
+            children= {<>
                 <Cart />
-            </div>}
+                <button className="btn" onClick={() => router.push("/cart")}>Check Out</button>
+            </>}
+            direction="right"
+            ref={cartRef}
+            isOn={cartPanel.on}
+            toggle={cartPanel.toggle}
+        />
     </>
 }

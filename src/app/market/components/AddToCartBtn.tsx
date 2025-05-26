@@ -24,5 +24,5 @@ export default function AddToCartBtn({
             addToCart({id, foodTitle, imgUrl, availableQty:quantity, price})
         }
 
-    return <button className={`btn gap-2 mt-auto ${isSoldOut ? "disabled" : ""}`} disabled={isSoldOut} onClick={(e) => handleCart(e, foodId, foodTitle, imgUrl ?? "")}>{isSoldOut ? "Sold out" : "Add to bag"}</button>
+    return <button className={`btn gap-2 mt-auto ${isSoldOut ? "disabled" : ""}`} disabled={isSoldOut} onClick={(e) => handleCart(e, foodId, foodTitle, imgUrl ?? "")}>{isSoldOut ? "Sold out" : "Add to cart"}</button>
 }

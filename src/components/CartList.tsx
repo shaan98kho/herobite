@@ -49,7 +49,7 @@ export default function CartList({
                             <p>{quantity}</p>
                         <button className={`btn ${isSoldOut ? "disabled" : ""}`} disabled={isSoldOut} onClick={() => increaseQty(foodId, availability)}>+</button>
                     </div>
-                    <p><span>RM</span>{price}</p>
+                    <p><span>RM</span>{price.toFixed(2)}</p>
                 </div>
             </div>
             <button onClick={() => deleteItem(foodId)} className="cursor-pointer cart-delete ml-auto"><FaRegTrashAlt /></button>

@@ -79,21 +79,21 @@ header {
   transition: all ease-in-out 0.2s;
 }
 
-.nav-panel a,
-.nav-panel svg {
+.drawer a,
+.drawer svg {
   color: var(--black);
   transition: all ease-in-out 0.2s;
 }
 
 .navbar a:not(.logo):hover,
-.nav-panel a:hover,
-.nav-panel svg:hover  {
+.drawer a:hover,
+.drawer svg:hover  {
   color: var(--secondary);
   font-weight: 700;
 }
 
 .navbar a.active,
-.nav-panel a.active {
+.drawer a.active {
   color: var(--primary);
 }
 
@@ -135,13 +135,9 @@ header {
   width: fit-content;
 }
 
-.nav-panel,
-.cart-panel {
+.drawer {
   background: var(--white);
   padding: 64px 16px;
-}
-
-.cart-panel {
   overflow: hidden scroll;
 
   h3 {
