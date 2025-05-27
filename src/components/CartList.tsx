@@ -4,7 +4,8 @@ import { CartItem } from "@/store/types"
 import { useStore } from "@/store/useStore"
 import { FaRegTrashAlt } from "react-icons/fa"
 import { useFetchSingleFood } from "@/hooks/useFetchSingleFood"
-
+import { useImagePreloader } from "@/hooks/useImagePreloader"
+import { FaImages } from "react-icons/fa"
 
 export default function CartList({
     foodId,
@@ -20,9 +21,12 @@ export default function CartList({
     const {data:foodItem, isLoading, isError} = useFetchSingleFood(foodId)
     const availability = foodItem?.quantity || 0
     const isSoldOut = quantity >= availability
-    
-
-    // console.log(useStore(s => s.cartItems[foodId]?.foodTitle), quantity)
+    const imgStatus = useImagePreloader(imgUrl ? imgUrl : null)
+    const imgEl = imgStatus === "loading"
+                    ? <div className="skeleton"></div>
+                    : imgStatus === "no-src"
+                                ? <FaImages />
+                                : <img src={imgUrl} alt="food photo"/>
 
     const deleteItem = (id: string):void => {
         removeItemFromCart(id)
@@ -39,7 +43,7 @@ export default function CartList({
 
     return <>
         <div className="cart-item flex w-[100%] pb-4 gap-4 items-start">
-            <img src={imgUrl}/>
+            {imgEl}
             <div className="cart-content">
                 <h4>{foodTitle}</h4>
                 <div>
