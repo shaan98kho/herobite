@@ -79,14 +79,14 @@ export interface CartItem {
     foodTitle: string,
     imgUrl?: string,
     userId?: string,
-    price: number
+    price: number,
 }
 
 export interface Review {
     reviewId: string,
     customerUid: string,
     restaurantUid: string,
-    foodId: string,
+    foodId?: string,
     rating: number,
     comment?: string,
     createdAt: Timestamp

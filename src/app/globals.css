@@ -68,7 +68,7 @@ header {
 .navbar {
   padding: 12px 16px;
   font-size: 18px;
-  max-width: 1440px;
+  max-width: 1680px;
   width: 100%;
   margin: 0 auto;
 }
@@ -198,7 +198,7 @@ footer {
 }
 
 .footer-wrap {
-  max-width: 1440px;
+  max-width: 1680px;
   width: 100%;
   margin: 0 auto;
 }
@@ -208,7 +208,7 @@ footer {
 }
 
 main {
-  max-width: 1440px;
+  max-width: 1680px;
   width: 100%;
   margin: 0 auto;
 }
@@ -378,16 +378,28 @@ main {
 }
 
 .hero {
-  /* box-shadow: inset 0px -6px 8px 0px rgba(0, 0, 0, 0.2); */
-
-  >h1 {
+  h1 {
     font-size: 32px;
     font-weight: 700;
+    color: var(--darkBlack);
+    text-shadow: 2px 0 var(--black);
   }
 
-  >p {
-    width: 50%;
+  p {
+    width: 100%;
+    font-weight: 500;
   }
+}
+
+.hero-img::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  bottom: 0;
+  background: var(--darkBlack);
+  left: 0;
+  right: 0;
+  opacity: 0.25;
 }
 
 .market {
@@ -646,6 +658,14 @@ main {
     > svg {
       width: 22px;
       height: 22px;
+    }
+  }
+}
+
+@media only screen and (min-width: 760px) {
+  .hero {
+    p {
+      width: 50%;
     }
   }
 }

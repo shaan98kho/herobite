@@ -1,22 +1,33 @@
 "use client"
 import Hero from "@/components/Hero"
 import { useRouter } from "next/navigation"
+import heroBanner from "../../public/assets/hero_banner.jpg"
+import useWindowSize from "@/hooks/useWindowSize"
 
 export default function App() {
     const router = useRouter()
     const pushToMarket = () => {
         router.push("/market")
     }
+    const {width} = useWindowSize()
 
 
     return (
         <>
             <Hero
-                caption="Today's Surplus"
-                description="For the time being, please click on User avatar/name to log out."
+                caption="Save Food, Save Money"
+                description="Discover amazing deals on surplus food from local businesses. Reduce waste and enjoy delicious meals at a fraction of the price."
                 action={pushToMarket}
                 actionName="Check Out Today's Market"
+                imgUrl="/assets/hero_banner.jpg"
             />
+
+            {/* <div className={`pt-10 ${width && width > 910 ? "px-[32px]" : "px-[16px]"}`}>
+                <h2 className="font-bold text-2xl pb-2">Featured Restaurants</h2>
+
+
+                <h2 className="font-bold text-2xl pb-2">Explore Various Food</h2>
+            </div> */}
         </>
     )
 }
