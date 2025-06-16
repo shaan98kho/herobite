@@ -12,6 +12,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 import { AuthSignIn } from "@/store/types"
 import { useStore } from '@/store/useStore'
+import { useAuthListener } from "@/hooks/useAuthListener"
 
 export default function Login() {
     const signIn = useStore(state => state.signIn)
@@ -23,6 +24,7 @@ export default function Login() {
     })
     const [isShowPassword, setIsShowPassword] = useState(false)
     const router = useRouter()
+    const user = useStore(s => s.user)
 
     const togglePassword = () => {
         setIsShowPassword((prev) => !prev)
@@ -40,8 +42,8 @@ export default function Login() {
     }
 
     useEffect(() => {
-        success && router.replace("/")
-    }, [success])
+        user && router.replace("/")
+    }, [user])
 
     return <>
         <GenericForm onSubmit={handleSubmit}>
