@@ -14,7 +14,7 @@ export default function About() {
             actionName="Learn More"
         />
         <div className="px-8">
-            <h2 className="pt-10 pb-4 text-3xl font-bold">Our Mission and Vission</h2>
+            <h2 className="pt-10 pb-4 text-3xl font-bold">Our Mission and Vision</h2>
             <p className="">At Surplus Market, we envision a world where no food goes to waste. Our mission is to create a sustainable marketplace that benefits both businesses and consumers. We aim to reduce food waste by providing a platform for businesses to sell their surplus food at discounted prices, while offering customers access to high-quality food at affordable rates.</p>
 
             <h2 className="pt-10 pb-4 text-3xl font-bold">How It Works</h2>
