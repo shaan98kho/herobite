@@ -1,15 +1,15 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState, lazy, Suspense } from "react"
 
-import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import Link from "next/link"
 
 import FilterPanel from "../components/FilterPanel"
-import FoodCard from "../components/FoodCard"
 import SearchBar from "../components/SearchBar"
+import FoodCard from "./FoodCard"
 import FoodCardSkeleton from "../components/FoodCardSkeleton"
-import { Filters, Food } from "@/store/types"
+import { Filters } from "@/store/types"
 
 import { useFetchFoods } from "@/hooks/useFetchFoods"
 import { useSetSearchParams } from "@/hooks/useSetSearchParams"
@@ -54,6 +54,8 @@ export default function Marketplace() {
             return results
         }
     }, [foods, filters, searchText])
+    
+    // const FoodList = lazy(() => import('./FoodList'))
 
 
     if(isError) return <h2 className="py-5 px-8">There was an error loading the listing, please try again.</h2>
@@ -100,6 +102,7 @@ export default function Marketplace() {
                         </div>
                     </>
                 }
+
                 <div className={`card-wrap grid grid-cols-2 md:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-[10px]`}>
                     {isLoading ? lazyListings() : foodListings}
                 </div>

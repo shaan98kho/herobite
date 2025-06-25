@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 
 import GenericForm from "@/components/GenericForm"
 import Toast from "@/components/Toast"
+import useEmailAvailability from "@/hooks/useEmailAvailability"
 
 import { FiLoader } from "react-icons/fi"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
