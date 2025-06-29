@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation"
 
 import GenericForm from "@/components/GenericForm"
 import Toast from "@/components/Toast"
-import useEmailAvailability from "@/hooks/useEmailAvailability"
 
 import { FiLoader } from "react-icons/fi"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
@@ -19,6 +18,7 @@ export default function SignUp() {
     const signUp = useStore(state => state.signUp)
     const success = useStore(state => state.success)
     const loading = useStore(state => state.loading)
+    const error = useStore(s=>s.error)
     const [formData, setFormData] = useState<AuthSignUp>({
         email: '',
         password: '',
@@ -36,6 +36,7 @@ export default function SignUp() {
         return {isShowPw, togglePw}
     }
     const router = useRouter()
+    // const emlAvl = useEmailAvailability()
 
     const pw = useTogglePw()
     const confirmPw = useTogglePw()
@@ -190,6 +191,8 @@ export default function SignUp() {
                     {pwError !== '' && <span className="error">{pwError}</span>}
 
                     <button type="submit" className="btn mt-9 w-full">{loading ? <FiLoader /> : "Sign Up"}</button>
+                    {error && <p className="error">{error}</p>}
+
                     <p className="pt-1 microcopy">Already have an account? <Link href="/auth/signIn" className="underline">Log In</Link></p>
                 </div>
             }

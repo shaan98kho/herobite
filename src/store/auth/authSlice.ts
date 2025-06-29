@@ -76,7 +76,12 @@ export const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
             }
             catch(e: any) {
                 console.log("Error during registration: ", e.message)
-                set({error: e.message})
+                if (e.code === 'auth/email-already-in-use') {
+                    set({error: 'That email address is already registered.'}) 
+                } else set({error: e.message})
+            }
+            finally{
+                set({loading: false})
             }
         },
         signIn: async({email, password}: AuthSignIn) => {
@@ -89,13 +94,14 @@ export const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
                     uid: user.uid,
                     email: user.email,
                 }
-                set({loading: false, error: null, success: true})
+                set({error: null, success: true})
                 return userInfo
             }
             catch(e: any) {
                 console.log("Error during sign-in: ", e.message)
                 set({error: e.message})
             }
+            finally {set({loading: false})}
         },
         logout: async() => {
             await signOut(auth)
