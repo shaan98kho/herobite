@@ -42,7 +42,7 @@ export interface Restaurant extends BaseUser {
     imgUrl?: string,
     isOpen: boolean,
     listingCount: number,
-    avgRating: number,
+    avgRating: number | null,
     socialLinks: {
         instagram?: string,
         x?: string
@@ -61,7 +61,6 @@ export interface Food {
     createdAt: Timestamp,
     unitPrice: number,
     tags?: string[]
-    reviews?: Review[]
 }
 
 export interface Order {

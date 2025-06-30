@@ -1,9 +1,9 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import Link from "next/link"
 
 import { useFetchSingleFood } from "@/hooks/useFetchSingleFood"
+import { useFetchSingleRestaurant } from "@/hooks/useFetchSingleRestaurant"
 
 import FoodDetail from "../components/FoodDetail"
 import BackButton from "../components/BackButton"
@@ -17,10 +17,11 @@ export default function FoodItem() {
     }
     const id = raw
     
-    const { data: foodItem, isLoading, isError } = useFetchSingleFood(id)
+    const { data: foodItem, isLoading: fIsLoading, isError: fIsError } = useFetchSingleFood(id)
+    const {data: restaurant, isLoading: rIsLoading, isError: rIsError} = useFetchSingleRestaurant(foodItem?.restaurantUid)
 
-    if(!foodItem) return <div className="py-5 px-8">There is an error loading food, please refresh and try again</div>
-    if(isLoading) return <div className="py-5 px-8">Loading..</div>
+    if(!foodItem || !restaurant) return <div className="py-5 px-8">There is an error loading food, please refresh and try again</div>
+    if(fIsLoading) return <div className="py-5 px-8">Loading..</div>
 
     return (<>
         <BackButton btnText="Back to market" />
@@ -34,7 +35,7 @@ export default function FoodItem() {
             expiryDate={foodItem.expiryDate}
             unitPrice={foodItem.unitPrice}
             tags={foodItem.tags}
-            reviews={foodItem.reviews}
+            avgRating={restaurant?.avgRating}
         />
     </>)
 }

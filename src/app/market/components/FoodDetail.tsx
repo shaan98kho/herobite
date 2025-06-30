@@ -1,6 +1,6 @@
 "use client"
 
-import { Food } from "@/store/types"
+import { Food, Restaurant } from "@/store/types"
 
 import { useState } from "react"
 import { useStore } from "@/store/useStore"
@@ -12,6 +12,8 @@ import AddToCartBtn from "./AddToCartBtn"
 
 import { FaImages, FaHeart } from "react-icons/fa"
 
+type FoodDetailProps = Omit<Food, "restaurantUid"> & Pick<Restaurant, "avgRating">
+
 export default function FoodDetail({
     id,
     title,
@@ -22,8 +24,8 @@ export default function FoodDetail({
     expiryDate,
     unitPrice,
     tags,
-    reviews
-}: Omit<Food, "restaurantUid">) {
+    avgRating
+}: FoodDetailProps) {
     const {isFav, toggleFav, isPending} = useToggleFavorite(id)
     const createdAtDateObj = createdAt.toDate().toISOString().slice(0,16).replace("T"," ")
     const expiryDateObj = expiryDate.toDate().toISOString().slice(0,16).replace("T"," ")
@@ -65,12 +67,6 @@ export default function FoodDetail({
                     />
                 </div>
             </div>
-            {reviews && reviews.map((review) => {
-                return <div>
-                    <h4>{review.rating}/5</h4>
-                    <p>{review.comment}</p>
-                </div>
-            })}
         </div>
     </>
     )
