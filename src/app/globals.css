@@ -32,6 +32,7 @@
   --backgroundGray: #ecebeb;
   --white: #ffffff;
   --red: #F33D32;
+  --yellow: #ffdf1a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -626,8 +627,6 @@ main {
 }
 
 .detail-title {
-  font-weight: 700;
-
   > h2 {
     font-size: 32px;
   }
@@ -640,6 +639,16 @@ main {
       font-weight: 400;
       color: var(--darkGray);
     }
+  }
+}
+
+.detail-heading {
+  color: var(--darkGray);
+}
+
+.rating {
+  > svg {
+    color: var(--yellow);
   }
 }
 

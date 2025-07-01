@@ -5,14 +5,16 @@ import { Food, Restaurant } from "@/store/types"
 import { useState } from "react"
 import { useStore } from "@/store/useStore"
 
+import Link from "next/link"
+
 import { useToggleFavorite } from "@/hooks/useToggleFavorite"
 
 import Toast from "@/components/Toast"
 import AddToCartBtn from "./AddToCartBtn"
 
-import { FaImages, FaHeart } from "react-icons/fa"
+import { FaImages, FaHeart, FaStar } from "react-icons/fa"
 
-type FoodDetailProps = Omit<Food, "restaurantUid"> & Pick<Restaurant, "avgRating">
+type FoodDetailProps = Omit<Food, "restaurantUid"> & Pick<Restaurant, "avgRating" | "name">
 
 export default function FoodDetail({
     id,
@@ -24,13 +26,16 @@ export default function FoodDetail({
     expiryDate,
     unitPrice,
     tags,
-    avgRating
+    avgRating,
+    name
 }: FoodDetailProps) {
     const {isFav, toggleFav, isPending} = useToggleFavorite(id)
     const createdAtDateObj = createdAt.toDate().toISOString().slice(0,16).replace("T"," ")
     const expiryDateObj = expiryDate.toDate().toISOString().slice(0,16).replace("T"," ")
     const currentUser = useStore(s => s.user)
     const [toastMsg, setToastMsg] = useState<string>('')
+
+    const rating = avgRating ? <span className="rating flex items-center gap-1"><FaStar />{avgRating}</span> : ""
     
     return (<>
         {toastMsg && <Toast message={toastMsg} onClose={() => setToastMsg('')}/>}
@@ -47,10 +52,11 @@ export default function FoodDetail({
                     </div>
                 }
                 <div className="detail-metadata">
-                    <div className="detail-title flex justify-between items-start">
+                    <div className="detail-title flex justify-between items-start font-bold">
                         <h2>{title}</h2>
                         <h3><span className="pr-1">RM</span>{unitPrice}</h3>
                     </div>
+                    <h3 className="detail-heading flex items-center gap-4 text-xl pb-2">{name}{rating}</h3>
                     <h4>Quantity: {quantity}</h4>
                     <p>{description}</p>
                     <div className="flex gap-1 flex-col">
