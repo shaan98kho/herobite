@@ -37,6 +37,7 @@ export default function FoodItem() {
             tags={foodItem.tags}
             avgRating={restaurant?.avgRating}
             name={restaurant?.name}
+            uid={restaurant?.uid}
         />
     </>)
 }
