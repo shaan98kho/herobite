@@ -1,6 +1,7 @@
 "use client"
 import { useParams } from "next/navigation"
 import { useFetchSingleRestaurant } from "@/hooks/useFetchSingleRestaurant"
+import { useFetchFoods } from "@/hooks/useFetchFoods"
 
 export default function Restaurant() {
     const {id} = useParams()
