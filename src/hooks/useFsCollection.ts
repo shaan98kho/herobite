@@ -39,6 +39,10 @@ export async function useFsCollection<T>(props: FsProps) {
         return singleData
     } else {
         // fetch docs
+        const key = props.whereClause 
+                    ? [collection, props.whereClause[0], props.whereClause[1]]
+                    : [collection, "all"]
+
         const colRef = collection(db, props.collectionName)
         const snapshot = await getDocs(colRef)
         const dataCollection = snapshot.docs?.map(doc => ({
