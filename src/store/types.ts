@@ -19,7 +19,7 @@ type Coordinates = {
 }
 
 export interface BaseUser {
-    uid: string,
+    id: string,
     email: string,
     name: string,
     address?: string,
@@ -28,7 +28,7 @@ export interface BaseUser {
 }
 
 export interface Customer extends BaseUser {
-    uid: string,
+    id: string,
     favourites?: string[],
     preferences?: string[],
     reviewedItems?: string[],
@@ -38,7 +38,7 @@ export interface Customer extends BaseUser {
 
 export interface Restaurant extends BaseUser {
     description?: string,
-    uid: string,
+    id: string,
     imgUrl?: string,
     isOpen: boolean,
     listingCount: number,
@@ -64,7 +64,7 @@ export interface Food {
 }
 
 export interface Order {
-    orderId: string,
+    id: string,
     customerUid: string,
     restaurantUid: string,
     foodItemId: string,
@@ -82,7 +82,7 @@ export interface CartItem {
 }
 
 export interface Review {
-    reviewId: string,
+    id: string,
     customerUid: string,
     restaurantUid: string,
     foodId?: string,

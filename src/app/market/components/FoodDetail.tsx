@@ -14,7 +14,9 @@ import AddToCartBtn from "./AddToCartBtn"
 
 import { FaImages, FaHeart, FaStar } from "react-icons/fa"
 
-type FoodDetailProps = Omit<Food, "restaurantUid"> & Pick<Restaurant, "avgRating" | "name" | "uid">
+type FoodDetailProps = Omit<Food, "restaurantUid"> 
+                        & Pick<Restaurant, "avgRating" | "name" >
+                        & { restaurantId: Restaurant["id"] }
 
 export default function FoodDetail({
     id,
@@ -28,7 +30,7 @@ export default function FoodDetail({
     tags,
     avgRating,
     name,
-    uid
+    restaurantId
 }: FoodDetailProps) {
     const {isFav, toggleFav, isPending} = useToggleFavorite(id)
     const createdAtDateObj = createdAt.toDate().toISOString().slice(0,16).replace("T"," ")
@@ -57,7 +59,7 @@ export default function FoodDetail({
                         <h2>{title}</h2>
                         <h3><span className="pr-1">RM</span>{unitPrice}</h3>
                     </div>
-                    <Link href={`/restaurants/${uid}`}><h3 className="detail-heading flex items-center gap-4 text-xl pb-2">{name}{rating}</h3></Link>
+                    <Link href={`/restaurants/${restaurantId}`}><h3 className="detail-heading flex items-center gap-4 text-xl pb-2">{name}{rating}</h3></Link>
                     <h4>Quantity: {quantity}</h4>
                     <p>{description}</p>
                     <div className="flex gap-1 flex-col">

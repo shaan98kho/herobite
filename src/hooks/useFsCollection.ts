@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import {
     where,
     query,
@@ -31,12 +31,21 @@ export async function useFsCollection<T>(props: FsProps) {
         const snapshot = await getDoc(docRef)
         if(!snapshot.exists()) throw new Error('Doc not found')
 
-        const data = {
+        const singleData= {
             ...snapshot.data(),
-            
+            id: snapshot.id
         } as T
+
+        return singleData
     } else {
         // fetch docs
         const colRef = collection(db, props.collectionName)
+        const snapshot = await getDocs(colRef)
+        const dataCollection = snapshot.docs?.map(doc => ({
+            ...doc.data(),
+            id: doc.id
+        })) as T[]
+
+        return dataCollection
     }
 }

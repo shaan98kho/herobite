@@ -3,19 +3,16 @@
 import { useMemo } from "react"
 import Link from "next/link"
 
-import { CartItem } from "@/store/types"
 import { useStore } from "@/store/useStore"
 
 import CartList from "./CartList"
-
-import { SiQuantcast } from "react-icons/si"
 
 export default function Cart() {
     const cartItems = useStore(s => s.cartItems)
     
     const cartEl = useMemo(() => {
             return Object.values(cartItems).map(food => {
-                console.log(food.quantity)
+                console.log(food.foodId)
                 return <CartList 
                     key={food.foodId}
                     foodId={food.foodId}

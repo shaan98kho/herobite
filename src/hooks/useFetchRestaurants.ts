@@ -9,7 +9,7 @@ async function fetchRestaurants(): Promise<Restaurant[]> {
     const snapshot = await getDocs(restaurantCollectionRef)
     const restaurants = snapshot.docs?.map(doc => ({
         ...doc.data(),
-        uid: doc.id
+        id: doc.id
     })) as Restaurant[]
 
     return restaurants

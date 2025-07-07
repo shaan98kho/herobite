@@ -36,7 +36,7 @@ export default function FilterPanel({filters, onChangeFilters}: FilterProps) {
 
     const tagOptions = availableTags.map((tag) => <button className="cursor-pointer filter-option p-1" key={tag} onClick={() => toggleFilters("tags", tag)}>{tag}</button>)
     
-    const restaurantOptions = restaurants?.map((restaurant) => <button className="currsor-pointer filter-option p-1" key={restaurant.uid} onClick={() => toggleFilters("restaurants", restaurant.uid)}>{restaurant.name}</button>)
+    const restaurantOptions = restaurants?.map((restaurant) => <button className="currsor-pointer filter-option p-1" key={restaurant.id} onClick={() => toggleFilters("restaurants", restaurant.id)}>{restaurant.name}</button>)
 
     return (
         <div className="filter-panel">

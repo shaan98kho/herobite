@@ -9,7 +9,7 @@ async function fetchSingleRestaurant(id: string):Promise<Restaurant> {
     if(!snapshot.exists()) throw new Error('Restaurant not found')
     const restaurant = {
         ...snapshot.data(),
-        uid: snapshot.id
+        id: snapshot.id
     } as Restaurant
 
     return restaurant

@@ -20,7 +20,7 @@ export function useToggleFavorite(foodId: string) {
     const mutation = useMutation<void, Error, boolean>({
         mutationFn: (fav) => {
           if (!currentUser) throw new Error('Not logged in!')
-          const ref = doc(db, 'customers', currentUser.uid)
+          const ref = doc(db, 'customers', currentUser.id)
           return updateDoc(
             ref,
             'favourites',
@@ -38,7 +38,7 @@ export function useToggleFavorite(foodId: string) {
         },
         onSettled: () => {
             queryClient.invalidateQueries({
-                queryKey: ['customer', currentUser?.uid],
+                queryKey: ['customer', currentUser?.id],
             })
         }
     })
