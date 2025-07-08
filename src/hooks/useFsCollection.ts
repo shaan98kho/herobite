@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, UseQueryOptions, QueryKey } from '@tanstack/react-query'
 import {
     where,
     query,
@@ -13,18 +13,29 @@ type MultiFetch = {
     collectionName: string,
     single: false,
     whereClause?: [field:string, value:any]
+    op?:
+        | '==' 
+        | '<' 
+        | '<=' 
+        | '>' 
+        | '>=' 
+        | 'array-contains' 
+        | 'in' 
+        | 'array-contains-any',
 }
 
 type SingleFetch = {
     collectionName: string,
     single: true,
     id: string,
-    whereClause?: never
+    whereClause?: never,
+    op?: never
+
 }
 
 type FsProps = MultiFetch | SingleFetch
 
-export async function useFsCollection<T>(props: FsProps) {
+async function fetchFs<T>(props: FsProps): Promise<T | T[]> {
     if(props.single) {
         // fetch single doc
         const docRef = doc(db, props.collectionName, props.id)
@@ -52,4 +63,21 @@ export async function useFsCollection<T>(props: FsProps) {
 
         return dataCollection
     }
+}
+
+export function useFetchFs<T>(
+    props: FsProps,
+    options?: UseQueryOptions<T | T[], Error>
+) {
+    const key: QueryKey = props.single
+    ? [props.collectionName, props.id]                             // Single-doc key
+    : props.whereClause                                              // Multi-doc + where
+    ? [
+        props.collectionName,
+        props.whereClause[0],
+        props.op ?? '==',
+        props.whereClause[1],
+      ]
+    : [props.collectionName, 'all']                                 // All-docs key
+ 
 }
