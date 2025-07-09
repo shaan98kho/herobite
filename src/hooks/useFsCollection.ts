@@ -1,11 +1,16 @@
-import { useQuery, UseQueryOptions, QueryKey } from '@tanstack/react-query'
+import { 
+    useQuery,
+    UseQueryOptions,
+    QueryKey,
+    UseQueryResult
+} from '@tanstack/react-query'
 import {
-    where,
-    query,
     collection,
     getDocs,
     doc,
-    getDoc
+    getDoc,
+    query,
+    where
 } from 'firebase/firestore/lite'
 import { db } from '@/app/lib/firebase'
 
@@ -49,13 +54,15 @@ async function fetchFs<T>(props: FsProps): Promise<T | T[]> {
 
         return singleData
     } else {
-        // fetch docs
-        const key = props.whereClause 
-                    ? [collection, props.whereClause[0], props.whereClause[1]]
-                    : [collection, "all"]
+        // fetch multiple docs
+        let colRef = collection(db, props.collectionName)
 
-        const colRef = collection(db, props.collectionName)
-        const snapshot = await getDocs(colRef)
+        const op = props.op ?? '==' // default to '=='
+        const queryRef = props.whereClause 
+                    ? query(colRef, where(props.whereClause[0], op, props.whereClause[1]))
+                    : colRef
+
+        const snapshot = await getDocs(queryRef)
         const dataCollection = snapshot.docs?.map(doc => ({
             ...doc.data(),
             id: doc.id
@@ -65,19 +72,24 @@ async function fetchFs<T>(props: FsProps): Promise<T | T[]> {
     }
 }
 
-export function useFetchFs<T>(
+export function useFsCollection<T>(
     props: FsProps,
     options?: UseQueryOptions<T | T[], Error>
-) {
+):UseQueryResult<T | T[], Error>{
     const key: QueryKey = props.single
-    ? [props.collectionName, props.id]                             // Single-doc key
-    : props.whereClause                                              // Multi-doc + where
+    ? [props.collectionName, props.id]
+    : props.whereClause
     ? [
         props.collectionName,
         props.whereClause[0],
         props.op ?? '==',
         props.whereClause[1],
       ]
-    : [props.collectionName, 'all']                                 // All-docs key
- 
+    : [props.collectionName, 'all']
+
+    return useQuery<T | T[]>({
+        queryKey: key,
+        queryFn: () => fetchFs<T>(props),
+        ...options
+    })
 }
