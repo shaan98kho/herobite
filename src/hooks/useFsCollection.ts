@@ -72,9 +72,24 @@ async function fetchFs<T>(props: FsProps): Promise<T | T[]> {
     }
 }
 
+type SingleOptions<T> = Omit<UseQueryOptions<T, Error, T, QueryKey>, "queryKey" | "queryFn">;
+type MultiOptions<T>  = Omit<UseQueryOptions<T[], Error, T[], QueryKey>, "queryKey" | "queryFn">;
+
+// overloading data to satisfy TS
+export function useFsCollection<T>(
+    props: Extract<FsProps, {single: true}>,
+    options?: SingleOptions<T>
+): UseQueryResult<T, Error>
+
+export function useFsCollection<T>(
+    props: Extract<FsProps, {single: false}>,
+    options?: MultiOptions<T>
+): UseQueryResult<T[], Error>
+
+// actual fn implementation itself
 export function useFsCollection<T>(
     props: FsProps,
-    options?: UseQueryOptions<T | T[], Error>
+    options?: SingleOptions<T> | MultiOptions<T>   
 ):UseQueryResult<T | T[], Error>{
     const key: QueryKey = props.single
     ? [props.collectionName, props.id]
@@ -90,6 +105,6 @@ export function useFsCollection<T>(
     return useQuery<T | T[]>({
         queryKey: key,
         queryFn: () => fetchFs<T>(props),
-        ...options
+        ...(options as any)
     })
 }
