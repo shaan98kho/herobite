@@ -1,12 +1,16 @@
 "use client"
 import { useParams } from "next/navigation"
-import { useFetchSingleRestaurant } from "@/hooks/useFetchSingleRestaurant"
-import { useFetchFoods } from "@/hooks/useFetchFoods"
+import { useFsCollection } from "@/hooks/useFsCollection"
+import { Restaurant as Rstrnt } from "@/store/types"
 
 export default function Restaurant() {
     const {id} = useParams()
     if(!id || Array.isArray(id)) return <div className="py-5 px-8">Invalid id</div>
-    const {data: restaurant, isLoading, isError} = useFetchSingleRestaurant(id)
+    const {data: restaurant, isLoading, isError} = useFsCollection<Rstrnt>({
+        single: true,
+        collectionName: "restaurant",
+        id: id
+    })
 
     if(!restaurant) return <div className="py-5 px-8">Invalid restaurant</div>
 

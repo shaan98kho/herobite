@@ -3,9 +3,10 @@
 import { CartItem } from "@/store/types"
 import { useStore } from "@/store/useStore"
 import { FaRegTrashAlt } from "react-icons/fa"
-import { useFetchSingleFood } from "@/hooks/useFetchSingleFood"
+import { useFsCollection } from "@/hooks/useFsCollection"
 import { useImagePreloader } from "@/hooks/useImagePreloader"
 import { FaImages } from "react-icons/fa"
+import { Food } from "@/store/types"
 
 export default function CartList({
     foodId,
@@ -18,7 +19,11 @@ export default function CartList({
     const removeItemFromCart = useStore(s => s.removeItemFromCart)
     const reduceItmQty = useStore(s => s.reduceItmQty)
     const increaseItmQty = useStore(s=>s.increaseItmQty)
-    const {data:foodItem, isLoading, isError} = useFetchSingleFood(foodId)
+    const {data:foodItem, isLoading, isError} = useFsCollection<Food>({
+        single: true,
+        collectionName: "foodListing",
+        id: foodId
+    })
     const availability = foodItem?.quantity || 0
     const isSoldOut = quantity >= availability
     const imgStatus = useImagePreloader(imgUrl ? imgUrl : null)

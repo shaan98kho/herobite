@@ -1,12 +1,8 @@
 "use client"
 
 import { useSearchParams } from "next/navigation"
-
-import { Filters } from "@/store/types"
-
-import useWindowSize from "@/hooks/useWindowSize"
-import { useFetchRestaurants } from "@/hooks/useFetchRestaurants"
-import next from "next"
+import { Filters, Restaurant } from "@/store/types"
+import { useFsCollection } from "@/hooks/useFsCollection"
 
 interface FilterProps {
     filters: Filters,
@@ -20,7 +16,10 @@ export default function FilterPanel({filters, onChangeFilters}: FilterProps) {
     const {available, selected} = filters
     const {restaurants: availableRestaurants, tags: availableTags} = available
     const {restaurants: selectedRestaurants, tags: selectedTags} = selected
-    const {data: restaurants, isLoading, isError} = useFetchRestaurants()
+    const {data: restaurants, isLoading, isError} = useFsCollection<Restaurant>({
+        single: false,
+        collectionName: "restaurants"
+    })
 
     const clearFilter = () => onChangeFilters({ restaurants: null, tags: null });
 

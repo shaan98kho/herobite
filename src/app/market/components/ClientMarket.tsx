@@ -9,14 +9,18 @@ import FilterPanel from "../components/FilterPanel"
 import SearchBar from "../components/SearchBar"
 import FoodCard from "./FoodCard"
 import FoodCardSkeleton from "../components/FoodCardSkeleton"
-import { Filters } from "@/store/types"
+import { Filters, Food } from "@/store/types"
 
-import { useFetchFoods } from "@/hooks/useFetchFoods"
+import { useFsCollection } from "@/hooks/useFsCollection"
 import { useSetSearchParams } from "@/hooks/useSetSearchParams"
 import useWindowSize from "@/hooks/useWindowSize"
 
 export default function Marketplace() {
-    const {data: foods, isLoading, isError} = useFetchFoods()
+    const {data: foods, isLoading, isError} = useFsCollection<Food>({
+        single: false,
+        collectionName: "foodListing"
+    })
+    
     const {width} = useWindowSize()
     const [isShowFilter, setIsShowFilter] = useState(false)
     const [searchText, setSearchText] = useState('')
@@ -54,8 +58,6 @@ export default function Marketplace() {
             return results
         }
     }, [foods, filters, searchText])
-    
-    // const FoodList = lazy(() => import('./FoodList'))
 
 
     if(isError) return <h2 className="py-5 px-8">There was an error loading the listing, please try again.</h2>

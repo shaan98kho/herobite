@@ -2,8 +2,6 @@
 
 import { useParams } from "next/navigation"
 
-// import { useFetchSingleFood } from "@/hooks/useFetchSingleFood"
-import { useFetchSingleRestaurant } from "@/hooks/useFetchSingleRestaurant"
 import { useFsCollection } from "@/hooks/useFsCollection"
 
 import FoodDetail from "../components/FoodDetail"
@@ -18,23 +16,18 @@ export default function FoodItem() {
       return <div className="py-5 px-8">Invalid id</div>
     }
     const id = raw
-    // console.log(id)
     
     const { data: foodItem, isLoading: fIsLoading, isError: fIsError } =  useFsCollection<Food>({
         single: true,
         collectionName: "foodListing",
         id
     })
-    
-    // const restaurantUid = ;
 
     const {data: restaurant, isLoading: rIsLoading, isError: rIsError} = useFsCollection<Restaurant>({
         single: true,
         collectionName: "restaurants", 
         id: foodItem?.restaurantUid!
     }, {enabled: !!foodItem?.restaurantUid})
-
-    // console.log(foodItem)
 
     if(!foodItem || !restaurant) return <div className="py-5 px-8">There is an error loading food, please refresh and try again</div>
     if(fIsLoading) return <div className="py-5 px-8">Loading..</div>
