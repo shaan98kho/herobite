@@ -29,7 +29,7 @@ export default function FoodCard({
                                 ? <div className="card-image skeleton"></div>
                                 : imgStatus === "no-src" 
                                             ? <div className="card-image"><FaImages /></div> 
-                                            : <div className="card-image"><img src={imgUrl} alt="food photo"></img></div>
+                                            : <div className="card-image"><img src={imgUrl} alt="food photo" className="object-cover "></img></div>
 
     return (<>
     

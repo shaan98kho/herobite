@@ -379,10 +379,11 @@ main {
 }
 
 .hero {
+  color: var(--darkBlack);
+  
   h1 {
     font-size: 32px;
     font-weight: 700;
-    color: var(--darkBlack);
     text-shadow: 2px 0 var(--black);
   }
 
@@ -468,11 +469,6 @@ main {
   background: var(--primary);
   color: var(--white);
   font-weight: 700;
-}
-
-.card-wrap {
-  width: 100%;
-  align-items: stretch;
 }
 
 .card {
@@ -594,7 +590,7 @@ main {
 .detail-img {
   width: 100%;
   position: relative;
-  height: 250px;
+  height: 350px;
   background: var(--mediumGray);
 
   > img {
@@ -718,10 +714,6 @@ main {
 
   .card-wrap {
     width: calc(100% - 250px);
-  }
-
-  .card {
-    max-width: 271px;
   }
 
   .card-header {

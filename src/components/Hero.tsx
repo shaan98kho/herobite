@@ -9,10 +9,11 @@ interface HeroProps {
     imgUrl?: string,
     description: string,
     actionName?: string,
-    action?: () => void
+    action?: () => void,
+    classes?: string
 }
 
-export default function Hero({caption, imgUrl, description, action=() => console.log("Hero action!"), actionName="Button" }: HeroProps) {
+export default function Hero({caption, imgUrl, description, action=() => console.log("Hero action!"), actionName="Button", classes }: HeroProps) {
     const {width} = useWindowSize()
 
     return (
@@ -24,7 +25,7 @@ export default function Hero({caption, imgUrl, description, action=() => console
                 style={{objectFit: 'cover', zIndex: -1}}
 
             /></div>}
-            <div className={`flex flex-col relative ${width && width > 720 ? "items-center justify-center text-center" : ""}`}>
+            <div className={`flex flex-col relative ${width && width > 720 ? "items-center justify-center text-center" : ""} ${classes}`}>
                 <h1 className="hero-title pb-5">{caption}</h1>
                 <p className="hero-content pb-10">{description}</p>
                 <button className="btn active" onClick={action}>{actionName}</button>

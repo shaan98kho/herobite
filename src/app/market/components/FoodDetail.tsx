@@ -47,7 +47,7 @@ export default function FoodDetail({
                 {imgUrl 
                     ? <div className="detail-img flex items-center">
                         <button onClick={currentUser ? toggleFav : () => setToastMsg('Please login first!')} className={`cursor-pointer ${isFav ? "active" : ""}`}><FaHeart/></button>
-                        <img src={imgUrl}></img>
+                        <img src={imgUrl} className="object-cover "></img>
                     </div>
                     : <div className="detail-img flex items-center">
                         <button onClick={currentUser ? toggleFav : () => setToastMsg('Please login first!')}  className={`cursor-pointer ${isFav ? "active" : ""}`}><FaHeart /></button>

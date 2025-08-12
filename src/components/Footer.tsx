@@ -22,6 +22,7 @@ export default function Footer() {
                         <a target="_blank" href="https://github.com/shaan98kho/herobite" rel="noopener noreferrer"
                         ><FaGithub/></a>
                         <a target="_blank" href="https://www.linkedin.com/in/wen-qi-k-966581138/" rel="noopener noreferrer"><FaLinkedin/></a>
+                        {/* <a target="_blank" href="https://pixelwq.vercel.app/" rel="noopener noreferrer"><FaLinkedin/></a> */}
                     </div>
                     <div>
 

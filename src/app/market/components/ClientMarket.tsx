@@ -105,7 +105,9 @@ export default function Marketplace() {
                     </>
                 }
 
-                <div className={`card-wrap grid grid-cols-2 md:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-[10px]`}>
+{/*  */}
+{/* grid grid-cols-2 md:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-[10px] */}
+                <div className={`card-wrap grid gap-4 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] items-stretch w-full`}>
                     {isLoading ? lazyListings() : foodListings}
                 </div>
             </div>
