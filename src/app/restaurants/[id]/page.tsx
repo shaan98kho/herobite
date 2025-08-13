@@ -1,8 +1,11 @@
 "use client"
 import { useParams } from "next/navigation"
+import Link from "next/link"
 import { useFsCollection } from "@/hooks/useFsCollection"
 import { Restaurant as Rstrnt, Food } from "@/store/types"
+import FoodCard from "@/components/FoodCard"
 import { useMemo } from "react"
+import { FaStar } from "react-icons/fa"
 
 export default function Restaurant() {
     const {id} = useParams()
@@ -20,9 +23,18 @@ export default function Restaurant() {
 
     const restaurantListing = useMemo(() => {
         return listing?.map(food => {
-            return <div key={food.id}>
-                <span>{food.title}</span>
-            </div>
+            return <Link href={`/market/${food.id}`} key={food.id}>
+            <FoodCard 
+                restaurantUid={food.restaurantUid}
+                id={food.id}
+                title={food.title}
+                description={food.description}
+                tags={food.tags}
+                unitPrice={food.unitPrice}
+                imgUrl={food.imgUrl}
+                quantity={food.quantity}
+            />
+        </Link>
         })
     }, [listing])
 
@@ -30,9 +42,9 @@ export default function Restaurant() {
 
     return <>
         <div className="py-5 px-8">
-            <h2 className="text-2xl">{restaurant.name}</h2>
-            <h3>{restaurant.avgRating}</h3>
-            <div className="flex">{restaurantListing}</div>
+            <h2 className="text-2xl">{restaurant.name} <span></span></h2>
+            <h3 className="rating flex text-xl items-center gap-2"><FaStar />{restaurant.avgRating}</h3>
+            <div className={`card-wrap grid gap-4 grid-cols-[repeat(auto-fit,minmax(150px,300px))] items-stretch w-full`}>{restaurantListing}</div>
         </div>
     </>
 }

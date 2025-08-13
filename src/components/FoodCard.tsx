@@ -2,17 +2,11 @@
 
 
 import { useState } from "react"
-
 import { Food } from "@/store/types"
-import { useStore } from '@/store/useStore'
-
 import useWindowSize from "@/hooks/useWindowSize"
 import { useImagePreloader } from "@/hooks/useImagePreloader"
-
-import AddToCartBtn from "./AddToCartBtn"
-
+import AddToCartBtn from "@/components/AddToCartBtn"
 import { FaImages } from "react-icons/fa"
-import { FiLoader } from "react-icons/fi"
 
 export default function FoodCard({
     id,

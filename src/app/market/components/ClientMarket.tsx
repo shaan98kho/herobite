@@ -1,14 +1,14 @@
 "use client"
 
-import { useMemo, useState, lazy, Suspense } from "react"
+import { useMemo, useState } from "react"
 
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 
 import FilterPanel from "../components/FilterPanel"
 import SearchBar from "../components/SearchBar"
-import FoodCard from "./FoodCard"
-import FoodCardSkeleton from "../components/FoodCardSkeleton"
+import FoodCard from "@/components/FoodCard"
+import FoodCardSkeleton from "@/components/FoodCardSkeleton"
 import { Filters, Food } from "@/store/types"
 
 import { useFsCollection } from "@/hooks/useFsCollection"
@@ -104,9 +104,6 @@ export default function Marketplace() {
                         </div>
                     </>
                 }
-
-{/*  */}
-{/* grid grid-cols-2 md:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-[10px] */}
                 <div className={`card-wrap grid gap-4 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] items-stretch w-full`}>
                     {isLoading ? lazyListings() : foodListings}
                 </div>

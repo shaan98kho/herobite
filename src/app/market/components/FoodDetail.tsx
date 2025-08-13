@@ -10,7 +10,7 @@ import Link from "next/link"
 import { useToggleFavorite } from "@/hooks/useToggleFavorite"
 
 import Toast from "@/components/Toast"
-import AddToCartBtn from "./AddToCartBtn"
+import AddToCartBtn from "@/components/AddToCartBtn"
 
 import { FaImages, FaHeart, FaStar } from "react-icons/fa"
 
