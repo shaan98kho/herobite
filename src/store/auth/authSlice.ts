@@ -18,12 +18,16 @@ export type AuthSlice = {
     loading: boolean,
     error: string | null,
     success: boolean,
+    authReady: boolean,
+    hasHydrated: boolean,
 
     //actions
     setUser: (data: BaseUser | null) => void,
     signUp: (data: AuthSignUp) => Promise<void>,
     signIn: (data: AuthSignIn) => Promise<any>,
-    logout: () => Promise<void>
+    logout: () => Promise<void>,
+    setAuthReady: (v: boolean) => void,
+    setHasHydrated: (v: boolean) => void
 }
 
 export const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
@@ -31,6 +35,8 @@ export const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
         loading: false,
         error: null,
         success: false,
+        authReady: false,
+        hasHydrated: false,
 
         // actions
         setUser: (user: BaseUser | null) => {
@@ -106,5 +112,7 @@ export const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
         logout: async() => {
             await signOut(auth)
             set({user:null, loading: false, error: null, success: false})
-        }
+        },
+        setAuthReady: (isReady) => set({ authReady: isReady }),
+        setHasHydrated: (isHydrated) => set({ hasHydrated: isHydrated })
     })

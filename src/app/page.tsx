@@ -1,7 +1,6 @@
 "use client"
 import Hero from "@/components/Hero"
 import { useRouter } from "next/navigation"
-import heroBanner from "../../public/assets/hero_banner.jpg"
 import useWindowSize from "@/hooks/useWindowSize"
 
 export default function App() {
@@ -9,7 +8,7 @@ export default function App() {
     const pushToMarket = () => {
         router.push("/market")
     }
-    const {width} = useWindowSize()
+    // const {width} = useWindowSize()
 
 
     return (

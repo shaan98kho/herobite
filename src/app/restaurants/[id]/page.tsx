@@ -38,7 +38,7 @@ export default function Restaurant() {
         })
     }, [listing])
 
-    if(!restaurant) return <div className="py-5 px-8">Invalid restaurant</div>
+    if(!restaurant) return <div className="py-5 px-8">Invalid restaurant, please try again!</div>
 
     return <>
         <div className="py-5 px-8">

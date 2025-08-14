@@ -27,6 +27,9 @@ export const useStore = create<MyState>()(
         restaurant: state.restaurant,
         cartItems: state.cartItems
       }),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true)
+      }
     }
   )
 )

@@ -26,6 +26,10 @@ export default function NavBar() {
     const cart = useStore(s => s.cartItems)
     const clearExpired = useStore(s => s.clearExpired)
 
+    
+
+    
+
     useEffect(() => {
         clearExpired()
     }, [clearExpired])
@@ -36,6 +40,11 @@ export default function NavBar() {
         const off = () => setOn(false)
         return {on, toggle, off}
     }
+
+//     const role        = useStore(s => s.user?.role);
+// const authReady   = useStore(s => s.authReady);
+// const hasHydrated = useStore(s => s.hasHydrated);
+//     console.log(role, authReady, hasHydrated)
 
     const navPanel = useToggle()
     const cartPanel = useToggle()

@@ -12,6 +12,7 @@ export function useAuthListener() {
     const setBaseUser = useStore(state => state.setUser)
     const setCustomerProfile = useStore(state => state.setCustomerProfile)
     const setRestaurantProfile = useStore(state => state.setRestaurantProfile)
+    const setAuthReady = useStore(state => state.setAuthReady)
 
     const handleSetUserProfile = useCallback(async (
         collName: "customers" | "restaurants",
@@ -23,20 +24,23 @@ export function useAuthListener() {
         if (!snapshot.exists()) return
 
         const data = snapshot.data()
-        console.log(data)
 
         if(collName === "customers") {
             setCustomerProfile(data as Customer)
+            setRestaurantProfile(null)
         }
         else if(collName === "restaurants") {
             setRestaurantProfile(data as Restaurant)
+            setCustomerProfile(null)
         }
     }, [setCustomerProfile, setRestaurantProfile])
 
     useEffect(() => {
+        let initialized = false
+
         const unsub = onAuthStateChanged(auth, async (fbUser) => {
-            if(fbUser) {
-                try {
+            try {
+                if(fbUser) {
                     const uid = fbUser.uid
                     const baseDocRef = doc(db, "users", uid)
                     const baseSnap = await getDoc(baseDocRef)
@@ -44,6 +48,9 @@ export function useAuthListener() {
 
                     if(!baseData) {
                         console.log("User does not exist")
+                        setBaseUser(null)
+                        setCustomerProfile(null)
+                        setRestaurantProfile(null)
                         return
                     }
                     setBaseUser(baseData as BaseUser)
@@ -51,18 +58,24 @@ export function useAuthListener() {
                     const userRole = baseData.role    
                     if(userRole === "customer") {
                         handleSetUserProfile("customers", uid)
+
                     }
                     if(userRole === "restaurant") {
                         handleSetUserProfile("restaurants", uid)
                     }
                 }
-                catch(e:any) {
-                    console.log(e.message)
+                else {
+                    setBaseUser(null)
+                    setCustomerProfile(null)
+                    setRestaurantProfile(null)
                 }
-            } else {
-                setBaseUser(null)
-                setCustomerProfile(null)
-                setRestaurantProfile(null)
+            } catch(e:any) {
+                console.log(e.message)
+            } finally {
+                if(!initialized) {
+                    setAuthReady(true)
+                    initialized = true
+                }
             }
         })
 
