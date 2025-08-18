@@ -26,10 +26,6 @@ export default function NavBar() {
     const cart = useStore(s => s.cartItems)
     const clearExpired = useStore(s => s.clearExpired)
 
-    
-
-    
-
     useEffect(() => {
         clearExpired()
     }, [clearExpired])
@@ -41,10 +37,10 @@ export default function NavBar() {
         return {on, toggle, off}
     }
 
-//     const role        = useStore(s => s.user?.role);
-// const authReady   = useStore(s => s.authReady);
-// const hasHydrated = useStore(s => s.hasHydrated);
-//     console.log(role, authReady, hasHydrated)
+    const role        = useStore(s => s.user?.role);
+    const authReady   = useStore(s => s.authReady);
+    const hasHydrated = useStore(s => s.hasHydrated);
+    console.log(role, authReady, hasHydrated)
 
     const navPanel = useToggle()
     const cartPanel = useToggle()
@@ -69,22 +65,31 @@ export default function NavBar() {
         </>
     }
 
+    const restaurantNavEl = () => {
+        return <>
+        <Link href="/" className={`${path === "/" ? "active font-bold" : ""}`}>Home</Link>
+        <Link href="/about" className={`${path === "/about" ? "active font-bold" : ""}`}>About Us</Link>
+        <Link href="/dashboard" className={`${path === "/dashboard" ? "active font-bold" : ""}`}>Dashboard</Link>
+        {((width && width < 910) && !currentUser) && <Link href="/auth/signIn" className={`${path === "/auth/signIn" ? "active font-bold" : ""}`}>Sign In</Link>}
+    </>
+    }
+
     return <>
         <nav className={`navbar relative`}>
             <Link href="/" className={`logo cursor-pointer leading-[60px] mx-auto flex w-full justify-center items-center ${width && width > 910 ? "pb-4" : ""}`}>Hero Bite</Link>
             <div className="navbar-metadata flex items-center gap-2 absolute">
                 {!currentUser && <Link href="/auth/signIn"><FaUserCircle /></Link>}
                 {(width && width > 910) && userIcon}
-                <div className="relative cursor-pointer" onClick={width && width > 460 ? (cartPanel.toggle) : (() => router.push("/cart"))}>
+                {role === "customer" && <div className="relative cursor-pointer" onClick={width && width > 460 ? (cartPanel.toggle) : (() => router.push("/cart"))}>
                     {cartItemsCount ? <div className="badge absolute">{cartItemsCount}</div> : ""}
                     <div className="navbar-icon"><LuShoppingBasket /></div>
-                </div>
+                </div>}
             </div>
             
             <div className="flex gap-12 items-center justify-center">
                 {width && width < 910 
                     ? (<button className="w-9 h-9 absolute top-[19px] left-[16px]" onClick={navPanel.toggle}><IoMenuOutline className="w-full h-full cursor-pointer" /></button>)
-                    : navElements()}
+                    : (role === "customer" ? navElements() : restaurantNavEl())}
             </div>
             
         </nav>

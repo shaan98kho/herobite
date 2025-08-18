@@ -15,6 +15,7 @@ interface HeroProps {
 
 export default function Hero({caption, imgUrl, description, action=() => console.log("Hero action!"), actionName="Button", classes }: HeroProps) {
     const {width} = useWindowSize()
+    console.log(imgUrl)
 
     return (
         <div className={`hero px-8 pt-25 pb-8 relative ${width && width > 760 ? "pt-30": "pt-60"}`}>

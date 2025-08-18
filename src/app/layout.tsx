@@ -1,5 +1,4 @@
 import NavBar from "@/components/Navbar"
-import Link from "next/link"
 import "./globals.css"
 import Footer from "@/components/Footer"
 import ReactQueryProvider from "@/components/ReactQueryProvider"
