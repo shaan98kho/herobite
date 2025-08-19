@@ -38,9 +38,9 @@ export default function NavBar() {
     }
 
     const role        = useStore(s => s.user?.role);
-    const authReady   = useStore(s => s.authReady);
-    const hasHydrated = useStore(s => s.hasHydrated);
-    console.log(role, authReady, hasHydrated)
+    // const authReady   = useStore(s => s.authReady);
+    // const hasHydrated = useStore(s => s.hasHydrated);
+    // console.log(role, authReady, hasHydrated)
 
     const navPanel = useToggle()
     const cartPanel = useToggle()
@@ -96,7 +96,7 @@ export default function NavBar() {
         {width && width < 910 && (
             <>
                 <Drawer 
-                    children= {<>{navElements()} {userIcon}</>}
+                    children= {<>{role === "customer" ? navElements() : restaurantNavEl()} {userIcon}</>}
                     direction="left"
                     ref={navRef}
                     isOn={navPanel.on}

@@ -8,6 +8,7 @@ export default function RootLayout({
         <Hero 
             caption="Welcome!"
             description={`Revenue made in the last 30 days: 888 MYR !`}
+            classesForWrp="wave-shape"
         />
         <Tabs />
         {children}
