@@ -8,7 +8,7 @@ export default function About() {
             description="Our mission is to reduce food waste by connecting businesses with surplus food customers looking for great deals"
             imgUrl="/assets/about_us.jpg"
             actionName="Learn More"
-            classes="text-white"
+            classesForWrp="text-white"
         />
         <div className="px-8">
             <h2 className="pt-10 pb-4 text-3xl font-bold">Our Mission and Vision</h2>
