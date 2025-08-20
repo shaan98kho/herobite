@@ -40,7 +40,7 @@ export default function FilterPanel({filters, onChangeFilters}: FilterProps) {
     return (
         <div className="filter-panel">
             <h3 className="font-bold text-2xl">Filter</h3>
-            <button className="btn-alt cursor-pointer" onClick={clearFilter}>Clear filter</button>
+            <button className="btn--secondary cursor-pointer" onClick={clearFilter}>Clear filter</button>
             <h4 className="pt-4 font-bold">Tags</h4>
             <div className="filter-row flex gap-2 flex-wrap">
                 {tagOptions}

@@ -19,6 +19,9 @@ export default function App() {
                 action={pushToMarket}
                 actionName="Check Out Today's Market"
                 imgUrl="/assets/hero_banner.jpg"
+                classesForBtn="active"
+                classesForWrp="text-[#121212]"
+                isShowBtn={true}
             />
 
             {/* <div className={`pt-10 ${width && width > 910 ? "px-[32px]" : "px-[16px]"}`}>

@@ -62,6 +62,12 @@ a:not(svg) {
   font-size: 14px;
 }
 
+.container {
+  max-width: 1680;
+  width: 100%;
+  margin: 0 auto;
+}
+
 header {
   background: var(--white);
 }
@@ -81,20 +87,23 @@ header {
 }
 
 .drawer a,
-.drawer svg {
+.drawer svg,
+.tabs a {
   color: var(--black);
   transition: all ease-in-out 0.2s;
 }
 
 .navbar a:not(.logo):hover,
 .drawer a:hover,
-.drawer svg:hover  {
+.drawer svg:hover,
+.tabs a:hover {
   color: var(--secondary);
   font-weight: 700;
 }
 
 .navbar a.active,
-.drawer a.active {
+.drawer a.active,
+.tabs a.active {
   color: var(--primary);
 }
 
@@ -209,7 +218,7 @@ footer {
 }
 
 main {
-  max-width: 1680px;
+  /* max-width: 1680px; */
   width: 100%;
   margin: 0 auto;
 }
@@ -313,6 +322,7 @@ main {
   font-weight: bold;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   cursor: pointer;
+  color: var(--black);
 
   >svg {
     width: 12px;
@@ -327,13 +337,17 @@ main {
   cursor: default;
 }
 
-.btn-alt {
+.btn--secondary {
   color: var(--primary);
   font-size: 18px;
   
   :hover {
     color: var(--secondary);
   }
+}
+
+.btn--tertiary {
+
 }
 
 .btn.active,
@@ -386,15 +400,18 @@ main {
   margin-bottom: 80px;
 }
 
+.wave-shape::before {
+  display: none;
+}
+
 .wave-shape::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -80px;
+  bottom: -76px;
   height: var(--wave-height);
   pointer-events: none;
-  z-index: 1;
   background-repeat: no-repeat;
   background-position: center bottom;
   background-size: 100% 100%;
@@ -403,8 +420,7 @@ main {
 }
 
 .hero {
-  color: var(--darkBlack);
-  
+  position: relative;
   h1 {
     font-size: 32px;
     font-weight: 700;
@@ -417,8 +433,14 @@ main {
   }
 }
 
-.hero.noBg {
-  background: var(--secondary);
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.25);
 }
 
 .hero-img::before {
@@ -683,9 +705,7 @@ main {
 }
 
 .tabs {
-  a {
-    color: var(--black);
-  }
+  
 }
 
 @media only screen and (min-width: 460px) {

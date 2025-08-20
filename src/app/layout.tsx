@@ -19,7 +19,7 @@ export default function RootLayout({
               <NavBar />
             </header>
             <main className="pb-20">
-              {children}
+                {children}
             </main>
             <Footer />
           </ReactQueryProvider>

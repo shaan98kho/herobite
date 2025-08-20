@@ -48,7 +48,7 @@ export const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
                 const creds = await createUserWithEmailAndPassword(auth, email, password)
                 const user = creds.user
                 const userData = {
-                    uid: user.uid,
+                    id: user.uid,
                     email: user.email,
                     role: role,
                     name: name
@@ -59,7 +59,7 @@ export const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
                 if(role === "customer") {
                     const customerData = {
                         name: name,
-                        uid: user.uid
+                        id: user.uid
                     }
 
                     await setDoc(doc(db, 'customers', user.uid), customerData)
@@ -72,7 +72,7 @@ export const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
                         listingCount: 0,
                         avgRating: 0,
                         socialLinks: {},
-                        uid: user.uid
+                        id: user.uid
                     }
 
                     await setDoc(doc(db, 'restaurants', user.uid), businessData)
@@ -97,7 +97,7 @@ export const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
 
                 const user = creds.user
                 const userInfo = {
-                    uid: user.uid,
+                    id: user.uid,
                     email: user.email,
                 }
                 set({error: null, success: true})

@@ -82,30 +82,30 @@ export default function Marketplace() {
             <FoodCardSkeleton key={i} />
         ))
     }
-
-    // grid grid-cols-2 md:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-[10px]
  
     return (
-        <div className="market">
-            <SearchBar searchText={searchText} setSearchText={setSearchText} />
-            <div className="market-bottom flex items-start gap-[10px] py-5">
-                {width && width > 910
-                    ? <FilterPanel 
-                            filters={filters}
-                            onChangeFilters={setSearchParams}
-                        />
-                    : <>
-                        <button className="btn mb-4" onClick={toggleFilter}>Filter</button>
-                        <div className={`filter-wrap ${isShowFilter ? "" : "hidden"}`}>
-                            <FilterPanel
+        <div className="container">
+            <div className="market">
+                <SearchBar searchText={searchText} setSearchText={setSearchText} />
+                <div className="market-bottom flex items-start gap-[10px] py-5">
+                    {width && width > 910
+                        ? <FilterPanel 
                                 filters={filters}
                                 onChangeFilters={setSearchParams}
                             />
-                        </div>
-                    </>
-                }
-                <div className={`card-wrap grid gap-4 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] items-stretch w-full`}>
-                    {isLoading ? lazyListings() : foodListings}
+                        : <>
+                            <button className="btn mb-4" onClick={toggleFilter}>Filter</button>
+                            <div className={`filter-wrap ${isShowFilter ? "" : "hidden"}`}>
+                                <FilterPanel
+                                    filters={filters}
+                                    onChangeFilters={setSearchParams}
+                                />
+                            </div>
+                        </>
+                    }
+                    <div className={`card-wrap grid gap-4 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] items-stretch w-full`}>
+                        {isLoading ? lazyListings() : foodListings}
+                    </div>
                 </div>
             </div>
         </div>

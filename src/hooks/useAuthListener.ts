@@ -41,8 +41,8 @@ export function useAuthListener() {
         const unsub = onAuthStateChanged(auth, async (fbUser) => {
             try {
                 if(fbUser) {
-                    const uid = fbUser.uid
-                    const baseDocRef = doc(db, "users", uid)
+                    const id = fbUser.uid
+                    const baseDocRef = doc(db, "users", id)
                     const baseSnap = await getDoc(baseDocRef)
                     const baseData = baseSnap.data()
 
@@ -57,11 +57,11 @@ export function useAuthListener() {
 
                     const userRole = baseData.role    
                     if(userRole === "customer") {
-                        handleSetUserProfile("customers", uid)
+                        handleSetUserProfile("customers", id)
 
                     }
                     if(userRole === "restaurant") {
-                        handleSetUserProfile("restaurants", uid)
+                        handleSetUserProfile("restaurants", id)
                     }
                 }
                 else {

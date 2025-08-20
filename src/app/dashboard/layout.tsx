@@ -1,16 +1,17 @@
 import Tabs from "./components/Tabs"
-import Hero from "@/components/Hero"
+import DashBoardHeroClient from "./components/DashboardHeroClient"
 
 export default function RootLayout({
     children,
 }: Readonly<{children: React.ReactNode}>) {
+    
+
     return <div>
-        <Hero 
-            caption="Welcome!"
-            description={`Revenue made in the last 30 days: 888 MYR !`}
-            classesForWrp="wave-shape"
-        />
+        <DashBoardHeroClient />
         <Tabs />
-        {children}
+        <div className="container">
+
+            {children}
+        </div>
     </div>
 }

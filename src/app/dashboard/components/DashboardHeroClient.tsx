@@ -1,0 +1,29 @@
+"use client"
+
+import Hero from "@/components/Hero"
+import { useFsCollection } from "@/hooks/useFsCollection"
+import { Restaurant } from "@/store/types"
+import { useStore } from "@/store/useStore"
+
+export default function DashBoardHeroClient() {
+    const res = useStore(s => s.restaurant)
+    const id = res?.role === "restaurant" ? res.id : ""
+    console.log(res)
+    // const {data: restaurant, isLoading, isError} = useFsCollection<Restaurant>({
+    //         single: true,
+    //         collectionName: "restaurants",
+    //         id
+    //     })
+
+    // console.log(restaurant)
+    
+    // if(!restaurant) return <div className="py-5 px-8">Invalid restaurant, please try again!</div>
+
+    return  <Hero 
+                caption="Welcome!"
+                description={`Revenue made in the last 30 days: 888 MYR !`}
+                classesForWrp=""
+                isShowBtn={false}
+                // imgUrl={restaurant.imgUrl}
+            />
+}

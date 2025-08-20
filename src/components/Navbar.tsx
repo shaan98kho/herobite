@@ -89,14 +89,14 @@ export default function NavBar() {
             <div className="flex gap-12 items-center justify-center">
                 {width && width < 910 
                     ? (<button className="w-9 h-9 absolute top-[19px] left-[16px]" onClick={navPanel.toggle}><IoMenuOutline className="w-full h-full cursor-pointer" /></button>)
-                    : (role === "customer" ? navElements() : restaurantNavEl())}
+                    : (role === "restaurant" ?restaurantNavEl(): navElements() )}
             </div>
             
         </nav>
         {width && width < 910 && (
             <>
                 <Drawer 
-                    children= {<>{role === "customer" ? navElements() : restaurantNavEl()} {userIcon}</>}
+                    children= {<>{role === "restaurant" ? restaurantNavEl() : navElements()} {userIcon}</>}
                     direction="left"
                     ref={navRef}
                     isOn={navPanel.on}

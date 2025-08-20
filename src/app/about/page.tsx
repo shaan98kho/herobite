@@ -9,6 +9,8 @@ export default function About() {
             imgUrl="/assets/about_us.jpg"
             actionName="Learn More"
             classesForWrp="text-white"
+            classesForBtn="active"
+            isShowBtn={true}
         />
         <div className="px-8">
             <h2 className="pt-10 pb-4 text-3xl font-bold">Our Mission and Vision</h2>
