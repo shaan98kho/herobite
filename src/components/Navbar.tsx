@@ -69,7 +69,7 @@ export default function NavBar() {
         return <>
         <Link href="/" className={`${path === "/" ? "active font-bold" : ""}`}>Home</Link>
         <Link href="/about" className={`${path === "/about" ? "active font-bold" : ""}`}>About Us</Link>
-        <Link href="/dashboard" className={`${path === "/dashboard" ? "active font-bold" : ""}`}>Dashboard</Link>
+        <Link href="/dashboard" className={`${path.startsWith("/dashboard") ? "active font-bold" : ""}`}>Dashboard</Link>
         {((width && width < 910) && !currentUser) && <Link href="/auth/signIn" className={`${path === "/auth/signIn" ? "active font-bold" : ""}`}>Sign In</Link>}
     </>
     }

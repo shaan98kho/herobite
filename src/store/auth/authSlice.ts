@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand"
-import { persist } from "zustand/middleware"
+// import { persist } from "zustand/middleware"
 
 import { BaseUser, AuthSignUp, AuthSignIn } from "../types"
 import { auth, db } from "@/app/lib/firebase"
@@ -11,7 +11,7 @@ import {
 } from "firebase/auth"
 import { setDoc, doc } from "firebase/firestore/lite"
 
-type AuthSignUpWithoutPhone = Omit<AuthSignUp, "phone">
+// type AuthSignUpWithoutPhone = Omit<AuthSignUp, "phone">
 
 export type AuthSlice = {
     user: BaseUser | null,

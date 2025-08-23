@@ -10,7 +10,6 @@ export default function RootLayout({
         <DashBoardHeroClient />
         <Tabs />
         <div className="container">
-
             {children}
         </div>
     </div>
