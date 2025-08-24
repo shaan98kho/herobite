@@ -69,6 +69,23 @@ export interface Order {
     restaurantUid: string,
     foodItemId: string,
     createdAt: Timestamp
+
+    items: Array<{
+        foodItemId: string,
+        title: string,
+        qty: number,
+        unitPrice: number,
+        discountPct?: number
+      }>
+    subtotal: number,
+    fees?: { platform?: number; payment?: number },
+    tax?: number,
+    totalPaid: number,
+    currency: 'MYR'
+
+    status: 'paid' | 'cancelled' | 'refunded' | 'pending'
+    cancelledAt?: Timestamp
+    refundedAt?: Timestamp
 }
 
 export interface CartItem {
