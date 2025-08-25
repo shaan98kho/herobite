@@ -8,7 +8,7 @@ import { useStore } from "@/store/useStore"
 export default function DashBoardHeroClient() {
     const res = useStore(s => s.user)
     const id = res?.role === "restaurant" ? res.id : ""
-    console.log(res)
+
     const {data: restaurant, isLoading, isError, isFetched} = useFsCollection<Restaurant>({
             single: true,
             collectionName: "restaurants",

@@ -41,8 +41,9 @@ type SingleFetch = {
 }
 
 type FsProps = MultiFetch | SingleFetch
+type WithId<T> = T & {id: string}
 
-async function fetchFs<T>(props: FsProps): Promise<T | T[]> {
+async function fetchFs<T>(props: FsProps): Promise<WithId<T> | WithId<T>[]> {
     if(props.single) {
         // fetch single doc
         const docRef = doc(db, props.collectionName, props.id)
@@ -52,7 +53,7 @@ async function fetchFs<T>(props: FsProps): Promise<T | T[]> {
         const singleData= {
             ...snapshot.data(),
             id: snapshot.id
-        } as T
+        } as WithId<T>
 
         return singleData
     } else {
@@ -68,7 +69,7 @@ async function fetchFs<T>(props: FsProps): Promise<T | T[]> {
         const dataCollection = snapshot.docs?.map(doc => ({
             ...doc.data(),
             id: doc.id
-        })) as T[]
+        })) as WithId<T>[]
 
         return dataCollection
     }
