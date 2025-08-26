@@ -15,13 +15,13 @@ export default function DashBoardHeroClient() {
             id: id!
         }, {enabled: !!id})
 
-        if (!id) return <div className="py-5 px-8">Signing in…</div>;
-        if (isLoading) return <div className="py-5 px-8">Loading…</div>;
-        if (isError) return <div className="py-5 px-8">Couldn't load restaurant.</div>
+    if (!id) return <div className="py-5 px-8">Signing in…</div>;
+    if (isLoading) return <div className="py-5 px-8">Loading…</div>;
+    if (isError) return <div className="py-5 px-8">Couldn't load restaurant.</div>
 
-        if (isFetched && !restaurant) {
-            return <div className="py-5 px-8">Invalid restaurant, please try again!</div>;
-        }
+    if (isFetched && !restaurant) {
+        return <div className="py-5 px-8">Invalid restaurant, please try again!</div>;
+    }
       
 
     return  <Hero 
