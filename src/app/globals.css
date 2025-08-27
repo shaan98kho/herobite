@@ -346,10 +346,6 @@ main {
   }
 }
 
-.btn--tertiary {
-
-}
-
 .btn.active,
 .btn:hover {
   background: var(--primary);
@@ -430,6 +426,14 @@ main {
   p {
     width: 100%;
     font-weight: 500;
+  }
+}
+
+.restaurant-slug-hero {
+  .hero-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 }
 
@@ -702,10 +706,6 @@ main {
     color: var(--yellow);
     padding-bottom: 2px;
   }
-}
-
-.tabs {
-  
 }
 
 @media only screen and (min-width: 460px) {

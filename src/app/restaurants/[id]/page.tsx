@@ -6,6 +6,7 @@ import { Restaurant as Rstrnt, Food } from "@/store/types"
 import FoodCard from "@/components/FoodCard"
 import { useMemo } from "react"
 import { FaStar } from "react-icons/fa"
+import Hero from "@/components/Hero"
 
 export default function Restaurant() {
     const {id} = useParams()
@@ -41,9 +42,15 @@ export default function Restaurant() {
     if(!restaurant) return <div className="py-5 px-8">Invalid restaurant, please try again!</div>
 
     return <>
+        <Hero 
+            caption={<>{restaurant.name}<span className="rating flex text-xl items-center gap-2"><FaStar />{restaurant.avgRating}</span> </>}
+            imgUrl={restaurant.imgUrl ?? ""}
+            description={restaurant.description}
+            isShowBtn={false}
+            classesForWrp="text-white"
+            classesForContent="restaurant-slug-hero"
+        />
         <div className="py-5 px-8">
-            <h2 className="text-2xl">{restaurant.name} <span></span></h2>
-            <h3 className="rating flex text-xl items-center gap-2"><FaStar />{restaurant.avgRating}</h3>
             <div className={`card-wrap grid gap-4 grid-cols-[repeat(auto-fit,minmax(150px,300px))] items-stretch w-full`}>{restaurantListing}</div>
         </div>
     </>

@@ -1,13 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, ReactNode } from "react"
 import Image from "next/image"
 import useWindowSize from "@/hooks/useWindowSize"
 
 interface HeroProps {
-    caption: string,
+    caption: string | ReactNode,
     imgUrl?: string,
-    description: string,
+    description: string | ReactNode,
     actionName?: string,
     action?: () => void,
     classesForWrp?: string,
