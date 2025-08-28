@@ -5,7 +5,7 @@ import { useFsCollection } from "@/hooks/useFsCollection"
 import { Restaurant as Rstrnt, Food } from "@/store/types"
 import FoodCard from "@/components/FoodCard"
 import { useMemo } from "react"
-import { FaStar } from "react-icons/fa"
+import RatingStar from "@/components/RatingStar"
 import Hero from "@/components/Hero"
 
 export default function Restaurant() {
@@ -42,10 +42,14 @@ export default function Restaurant() {
     if(!restaurant) return <div className="py-5 px-8">Invalid restaurant, please try again!</div>
 
     return <>
+        {/* <span className="rating flex text-xl items-center gap-2"><FaStar />{restaurant.avgRating}</span> */}
         <Hero 
-            caption={<>{restaurant.name}<span className="rating flex text-xl items-center gap-2"><FaStar />{restaurant.avgRating}</span> </>}
+            caption={<>{restaurant.name}</>}
             imgUrl={restaurant.imgUrl ?? ""}
-            description={restaurant.description}
+            description={<>
+                {restaurant.description}
+                <div><RatingStar rating={restaurant.avgRating ?? 0} showValue className="mt-2"/></div>
+                </>}
             isShowBtn={false}
             classesForWrp="text-white"
             classesForContent="restaurant-slug-hero"

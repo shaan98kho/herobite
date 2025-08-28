@@ -31,7 +31,7 @@ export default function Hero({caption, imgUrl, description, action=() => console
             /></div>}
             <div className={`flex flex-col relative ${width && width > 720 ? "items-center justify-center text-center" : ""} ${classesForContent ?? ""}`}>
                 <h1 className="hero-title pb-5">{caption}</h1>
-                <p className="hero-content pb-10">{description}</p>
+                <div className="hero-content pb-10">{description}</div>
                 {isShowBtn ? <button className={`btn ${classesForBtn}`} onClick={action}>{actionName}</button>: ""}
             </div>
             <div className="absolute bottom-[-2px] left-0 w-full overflow-hidden leading-[0] rotate-180">

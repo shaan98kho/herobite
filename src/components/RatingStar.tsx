@@ -1,64 +1,66 @@
-import { FaStar } from "react-icons/fa"
+import { FaStar, FaRegStar } from "react-icons/fa"
 
 type StarRatingProps = {
-    rating: number,
-    outOf?: number,
-    size?: number,
-    className?: string,
-    label?: string
-  };
-  
-  const Star = ({ size = 20, className = "" }: { size?: number; className?: string }) => (
-    <svg
-      viewBox="0 0 24 24"
-      width={size}
-      height={size}
-      aria-hidden="true"
-      className={className}
+  rating: number,
+  outOf?: number,
+  size?: number,
+  filledColor?: string,
+  emptyColor?: string,
+  showValue?: boolean,
+  className?: string,
+};
+
+export default function RatingStar({
+  rating,
+  outOf = 5,
+  size = 18,
+  filledColor = "#F6C343",
+  emptyColor = "#1F2937",
+  showValue = false,
+  className,
+}: StarRatingProps) {
+  // clamp to [0, outOf] and round to nearest 0.5
+  const clamped = Math.max(0, Math.min(rating, outOf))
+  const rounded = Math.round(clamped * 2) / 2
+  const pct = Math.min(100, Math.max(0, (rounded / outOf) * 100))
+
+  return (
+    <div
+      className={`inline-flex items-start ${className ?? ""}`}
+      role="img"
+      aria-label={`${rounded.toFixed(1)} out of ${outOf} stars`}
+      title={`${rounded.toFixed(1)} / ${outOf}`}
     >
-      <path
-        d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-  
-  export function StarRating({
-    rating,
-    outOf = 5,
-    size = 18,
-    className = "",
-    label,
-  }: StarRatingProps) {
-    const pct = Math.max(0, Math.min(1, rating / outOf)) * 100;
-    const stars = Array.from({ length: outOf });
-  
-    return (
-      <div
-        className={`relative inline-block ${className}`}
-        role="img"
-        aria-label={label ?? `${rating.toFixed(1)} out of ${outOf} stars`}
-        title={`${rating.toFixed(1)} / ${outOf}`}
-      >
-        {/* Base layer: gray stars */}
-        <div className="flex gap-0.5 text-gray-300">
-          {stars.map((_, i) => (
-            <Star key={`bg-${i}`} size={size} />
+      <div style={{ position: "relative", lineHeight: 0 }}>
+        {/* base (empty) stars */}
+        <div style={{ display: "flex" }} aria-hidden="true">
+          {Array.from({ length: outOf }).map((_, i) => (
+            <FaRegStar key={`empty-${i}`} size={size} color={emptyColor} />
           ))}
         </div>
-  
-        {/* Fill layer: yellow stars, clipped by width */}
+
+        {/* filled (yellow) stars clipped by width */}
         <div
-          className="absolute inset-0 overflow-hidden"
-          style={{ width: `${pct}%` }}
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: `${pct}%`,
+            overflow: "hidden",
+            pointerEvents: "none",
+          }}
         >
-          <div className="flex gap-0.5 text-yellow-400">
-            {stars.map((_, i) => (
-              <Star key={`fg-${i}`} size={size} />
+          <div style={{ display: "flex" }}>
+            {Array.from({ length: outOf }).map((_, i) => (
+              <FaStar key={`filled-${i}`} size={size} color={filledColor} />
             ))}
           </div>
         </div>
       </div>
-    );
-  }
-  
+
+      {showValue && (
+        <span className="font-bold text-sm ml-2">{rounded.toFixed(1)}</span>
+      )}
+    </div>
+  );
+}
