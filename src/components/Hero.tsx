@@ -25,6 +25,8 @@ export default function Hero({caption, imgUrl, description, action=() => console
             {imgUrl && <div className="hero-img"><Image 
                 src={imgUrl}
                 alt="hero image"
+                priority
+                fetchPriority="high"
                 fill
                 style={{objectFit: 'cover', zIndex: -1}}
 
